@@ -1,0 +1,3 @@
+[run]
+wc3_start_command = "D:\\Games\\Warcraft III\\x86_64\\Warcraft III.exe"
+window_mode = "windowed"
