@@ -1,7 +1,8 @@
 require("TreeCore")
 require("Utils")
 require("MouseLoc")
-require("AITargeting")
+require("Targeting")
+require("AITownBuildingLocation")
 
 ContextBoard = { }
 ContextBoard.__index = ContextBoard
@@ -24,7 +25,7 @@ function ContextBoard.Create(aiPlayer, aiRace)
     this.data = ArrayList.Create()
     this.type = ContextBoard.types.WORKER
     this.mouse = MouseLoc.Create(aiPlayer)
-    this.targeting = AITargeting.Create()
+    this.targeting = Targeting.Create()
 
     this.board = CreateMultiboard()
     MultiboardSetTitleText(this.board, "Great shit!")
@@ -148,7 +149,8 @@ function ContextBoard.Create(aiPlayer, aiRace)
             this.type = ContextBoard.types.CREEP
         elseif msg == "-bw" then
             this.type = ContextBoard.types.BUILDERWORKER
-
+        elseif msg == "-build" then
+            AITownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", AITownBuildingLocation.sizes.SMALL)
         elseif msg == "-reset" then
             aiRace.moduleWorker.UpdateOrdersForWorkers(true)
         end

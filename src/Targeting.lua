@@ -1,13 +1,13 @@
 require("TreeCore")
 require("Utils")
 
-AITargeting = { }
-AITargeting.__index = AITargeting
+Targeting = { }
+Targeting.__index = Targeting
 
-function AITargeting.Create()
+function Targeting.Create()
     local this = { }
     --Constants
-    local logger = TreeCore.CreateLogger("AITargeting.lua")
+    local logger = TreeCore.CreateLogger("Targeting.lua")
 
     logger.Verbose("Started Building AITargeting")
 
