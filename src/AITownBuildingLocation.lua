@@ -1,5 +1,4 @@
 require("TreeCore")
-require("AITownBuildingLocationCache")
 require("Utils")
 require("Targeting")
 
@@ -30,7 +29,7 @@ function AITownBuildingLocation.Create()
         startX = math.floor(startX / stepSize) * stepSize
         startY = math.floor(startY / stepSize) * stepSize
 
-        for i = 1, 1000 do
+        for i = 1, 2500 do -- TODO: Check how many of these i actually need.
             if (this.CheckLoc(startX + x, startY - range, unitType, builderType)) then
                 return Location(startX + x, startY - range)
             end
@@ -56,14 +55,9 @@ function AITownBuildingLocation.Create()
     function this.CheckLoc(x, y, unitType, builderType)
         local ret = false
 
-        if (AITownBuildingLocationCache.Get(unitType, x, y)) then
-            return true
-        end
         local loc = Location(x, y)
         if (targeting.CanBuildUnitAt(unitType, loc, builderType)) then
             ret = true
-        else
-            AITownBuildingLocationCache.Set(unitType, x, y)
         end
         RemoveLocation(loc)
 

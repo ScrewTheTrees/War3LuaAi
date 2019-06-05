@@ -119,7 +119,7 @@ function ContextBoard.Create(aiPlayer, aiRace)
         elseif this.type == ContextBoard.types.BUILDERWORKER then
             MultiboardSetTitleText(this.board, "Builder & Worker data")
             this.AddBuildingData()
-            this.data.Push({name = "-", value = "------------------------"})
+            this.data.Push({ name = "-", value = "------------------------" })
             this.AddWorkerData()
         end
 
@@ -138,22 +138,24 @@ function ContextBoard.Create(aiPlayer, aiRace)
     this.keyboard.trigger = CreateTrigger()
     this.keyboard.event = TriggerRegisterPlayerChatEvent(this.keyboard.trigger, aiPlayer, "", false)
     this.keyboard.action = TriggerAddAction(this.keyboard.trigger, function()
-        local msg = GetEventPlayerChatString()
-        if msg == "-w" then
-            this.type = ContextBoard.types.WORKER
-        elseif msg == "-b" then
-            this.type = ContextBoard.types.BUILDINGS
-        elseif msg == "-t" then
-            this.type = ContextBoard.types.TARGETING
-        elseif msg == "-c" then
-            this.type = ContextBoard.types.CREEP
-        elseif msg == "-bw" then
-            this.type = ContextBoard.types.BUILDERWORKER
-        elseif msg == "-build" then
-            AITownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", AITownBuildingLocation.sizes.SMALL)
-        elseif msg == "-reset" then
-            aiRace.moduleWorker.UpdateOrdersForWorkers(true)
-        end
+        xpcall(function()
+            local msg = GetEventPlayerChatString()
+            if msg == "-w" then
+                this.type = ContextBoard.types.WORKER
+            elseif msg == "-b" then
+                this.type = ContextBoard.types.BUILDINGS
+            elseif msg == "-t" then
+                this.type = ContextBoard.types.TARGETING
+            elseif msg == "-c" then
+                this.type = ContextBoard.types.CREEP
+            elseif msg == "-bw" then
+                this.type = ContextBoard.types.BUILDERWORKER
+            elseif msg == "-build" then
+                AITownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", AITownBuildingLocation.sizes.SMALL)
+            elseif msg == "-reset" then
+                aiRace.moduleWorker.UpdateOrdersForWorkers(true)
+            end
+        end, logger.Critical)
     end)
 
     logger.Verbose("Finish Building ContextBoard")
