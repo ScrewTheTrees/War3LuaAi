@@ -1,9 +1,5 @@
-require("TreeCore")
-
 AITownBuildingLocationCache = { }
 AITownBuildingLocationCache.__index = AITownBuildingLocationCache
-
-logger.Verbose("Started Building AITownBuildingLocationCache")
 
 function AITownBuildingLocationCache.Set(type, x, y)
     if (AITownBuildingLocationCache[type] == nil) then
