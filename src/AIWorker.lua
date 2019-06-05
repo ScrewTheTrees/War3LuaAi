@@ -6,23 +6,25 @@ require("AIWorkerGroups")
 require("AIBuildings")
 require("ArrayList")
 require("Ids")
+require("WorkerTypeConfig")
+require("AIConstructor")
 
 AIWorker = { }
 AIWorker.__index = AIWorker
 
-AIWorker.Create = function(aiPlayer, workerTypes)
+AIWorker.Create = function(aiPlayer, workerTypeConfig)
     local this = { }
-    setmetatable(this, AIWorker)
-    --CONSTANTS
     local logger = TreeCore.CreateLogger("AIWorker.lua")
+    logger.Verbose("Started Building AIWorker")
 
-    this.workerTypes = workerTypes
+    this.workerTypeConfig = WorkerTypeConfig.ResolveParam(workerTypeConfig)
 
     this.townAllocator = AITownAllocator.Create(aiPlayer)
     this.workerAllocator = AIWorkerAllocator.Create(aiPlayer)
+    this.workerGroups = AIWorkerGroups.Create(workerTypeConfig)
 
-    this.workerGroups = AIWorkerGroups.Create(workerTypes)
     this.buildings = AIBuildings.Create(aiPlayer, this.townAllocator)
+    this.constructor = AIConstructor.Create(this.workerGroups, this.buildings, this.townAllocator)
 
     local function PerformWorkerOrder(worker, orderType, townIndex, hardReset)
         hardReset = hardReset or false
@@ -58,7 +60,7 @@ AIWorker.Create = function(aiPlayer, workerTypes)
                     PerformWorkerOrder(worker, Ids.orderTypes.ORDER_WOOD, group.townIndex, hardReset)
                 end
                 if (group.orderType == Ids.orderTypes.ORDER_BUILD and not (worker.order == Ids.orderTypes.ORDER_BUILD)) then
-                    PerformWorkerOrder(worker, this.workerTypes.buildIdleOrder, group.townIndex, false)
+                    PerformWorkerOrder(worker, this.workerTypeConfig.buildIdleOrder, group.townIndex, false)
                 end
             end
         end
@@ -103,13 +105,14 @@ AIWorker.Create = function(aiPlayer, workerTypes)
 
     this.workerRemover = {}
     this.workerRemover.trigger = CreateTrigger()
-    this.workerRemover.event = TriggerRegisterPlayerUnitEvent(this.workerRemover.trigger, aiPlayer, EVENT_PLAYER_UNIT_DEATH, Condition(nil))
+    this.workerRemover.event = TriggerRegisterPlayerUnitEvent(this.workerRemover.trigger, aiPlayer, EVENT_PLAYER_UNIT_DEATH, nil)
     this.workerAdder.condition = TriggerAddCondition(this.workerRemover.trigger, Condition(function()
         return (Ids.IsPeonId(Utils.CCInteger(GetUnitTypeId(GetDyingUnit()))))
     end))
     this.workerRemover.action = TriggerAddAction(this.workerRemover.trigger, function()
         local id = this.workerAllocator.GetIndexByUnit(GetDyingUnit())
         local worker = this.workerAllocator.Pop(id)
+        worker.order = Ids.orderTypes.ORDER_DEAD
         this.workerGroups.ClearWorker(worker)
         this.UpdateOrdersForWorkers()
     end)
@@ -117,4 +120,13 @@ AIWorker.Create = function(aiPlayer, workerTypes)
     logger.Verbose("Finish Building AIWorker")
 
     return this
+end
+function AIWorker.ResolveParam(param)
+    if (param) then
+        local this = AIWorker.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

@@ -5,7 +5,6 @@ AIAbstractRace.__index = AIAbstractRace
 
 function AIAbstractRace.Create(aiPlayer)
     local this = { }
-    setmetatable(this, AIAbstractRace)
     --Constants
     local logger = TreeCore.CreateLogger("AIAbstractRace.lua")
 
@@ -23,4 +22,14 @@ function AIAbstractRace.Create(aiPlayer)
 
     logger.Verbose("Finish Building AIRaceInterface")
     return this
+end
+
+function AIAbstractRace.ResolveParam(param)
+    if (param) then
+        local this = AIAbstractRace.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

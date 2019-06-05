@@ -6,7 +6,8 @@ AITownBuildingLocation = { }
 AITownBuildingLocation.__index = AITownBuildingLocation
 AITownBuildingLocation.sizes = {
     TINY = 32,
-    SMALL = 64,
+    SMALL = 96,
+    MEDIUM = 128,
 }
 
 function AITownBuildingLocation.Create()
@@ -64,4 +65,14 @@ function AITownBuildingLocation.Create()
 
     logger.Verbose("Finish Building AITownBuildingLocation")
     return this
+end
+
+function AITownBuildingLocation.ResolveParam(param)
+    if (param) then
+        local this = AITownBuildingLocation.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

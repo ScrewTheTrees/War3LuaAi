@@ -3,9 +3,8 @@ require("ArrayList")
 
 AICreep = { }
 
-AICreep.Create = function(aiPlayer)
+function AICreep.Create()
     local this = ArrayList.Create()
-    setmetatable(this, AICreep)
     --CONSTANTS
     local campRadius = 832
     local neutralPlayer = Player(GetPlayerNeutralAggressive())
@@ -57,4 +56,14 @@ AICreep.Create = function(aiPlayer)
 
     logger.Verbose("Finish Building AICreep")
     return this
+end
+
+function AICreep.ResolveParam(param)
+    if (param) then
+        local this = AICreep.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

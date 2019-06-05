@@ -37,3 +37,13 @@ function Targeting.Create()
     logger.Verbose("Finish Building AITargeting")
     return this
 end
+
+function Targeting.ResolveParam(param)
+    if (param) then
+        local this = Targeting.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
+end

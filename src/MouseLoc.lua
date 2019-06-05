@@ -26,3 +26,13 @@ function MouseLoc.Create(aiPlayer)
     logger.Verbose("Finish Building MouseLoc")
     return this
 end
+
+function MouseLoc.ResolveParam(param)
+    if (param) then
+        local this = MouseLoc.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
+end

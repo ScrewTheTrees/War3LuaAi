@@ -33,6 +33,7 @@ Ids.goldmineIds = {
 }
 
 Ids.orderTypes = {
+    ORDER_DEAD = "ORDER_DEAD",
     ORDER_IDLE = "ORDER_IDLE",
     ORDER_GOLDMINE = "ORDER_GOLDMINE",
     ORDER_WOOD = "ORDER_WOOD",

@@ -50,3 +50,13 @@ function AICore.Create()
     logger.Verbose("Finish Building AICore")
     return this
 end
+
+function AICore.ResolveParam(param)
+    if (param) then
+        local this = AICore.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
+end

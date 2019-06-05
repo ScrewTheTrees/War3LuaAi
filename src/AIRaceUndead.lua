@@ -2,6 +2,7 @@ require("TreeCore")
 require("AICreep")
 require("AIWorker")
 require("AIAbstractRace")
+require("WorkerTypeConfig")
 
 AIRaceUndead = { }
 AIRaceUndead.__index = AIRaceUndead
@@ -12,8 +13,8 @@ function AIRaceUndead.Create(aiPlayer)
     local logger = TreeCore.CreateLogger("AIRaceUndead.lua")
     logger.Verbose("Make AIRaceUndead")
 
-    this.workerTypes = {gold = "uaco", wood = "ugho", build = "uaco", buildIdleOrder = Ids.orderTypes.ORDER_GOLDMINE}
-    this.moduleWorker = AIWorker.Create(aiPlayer, this.workerTypes)
+    this.workerTypeConfig = WorkerTypeConfig.Create("uaco", "ugho", "uaco", Ids.orderTypes.ORDER_GOLDMINE)
+    this.moduleWorker = AIWorker.Create(aiPlayer, this.workerTypeConfig)
 
     this.moduleWorker.workerGroups.Set(1, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
     this.moduleWorker.workerGroups.Set(1, 1, Ids.orderTypes.ORDER_BUILD, 1)
@@ -25,4 +26,14 @@ function AIRaceUndead.Create(aiPlayer)
     logger.Verbose("Finish AIRaceUndead")
 
     return this
+end
+
+function AIRaceUndead.ResolveParam(param)
+    if (param) then
+        local this = AIRaceUndead.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

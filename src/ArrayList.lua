@@ -80,3 +80,13 @@ function ArrayList.Create(extension, ordered)
     end
     return this
 end
+
+function ArrayList.ResolveParam(param)
+    if (param) then
+        local this = ArrayList.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
+end

@@ -31,3 +31,13 @@ function Promise.Create()
     logger.Verbose("Finish Building Promise")
     return this
 end
+
+function Promise.ResolveParam(param)
+    if (param) then
+        local this = Promise.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
+end

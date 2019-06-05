@@ -54,3 +54,13 @@ function AITownAllocator.Create(aiPlayer)
     logger.Verbose("Finish Building AITownAllocator")
     return this
 end
+
+function AITownAllocator.ResolveParam(param)
+    if (param) then
+        local this = AITownAllocator.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
+end

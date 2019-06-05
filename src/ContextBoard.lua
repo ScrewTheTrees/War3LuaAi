@@ -42,7 +42,7 @@ function ContextBoard.Create(aiPlayer, aiRace)
     end
 
     function this.AddWorkerData()
-        this.data.Push({ name = "", value = Utils.CreateJson(aiRace.workerTypes) })
+        this.data.Push({ name = "", value = Utils.CreateJson(aiRace.workerTypeConfig) })
         this.data.Push({ name = "workerGroups", value = #aiRace.moduleWorker.workerGroups })
         for i, e in ipairs(aiRace.moduleWorker.workerGroups) do
             this.data.Push({ name = "    " .. i, value = e.orderType .. " -> " .. #e.workerIndexes .. "/" .. e.amountOfWorkers .. " workers in town " .. e.townIndex })
@@ -161,4 +161,13 @@ function ContextBoard.Create(aiPlayer, aiRace)
 
     logger.Verbose("Finish Building ContextBoard")
     return this
+end
+function ContextBoard.ResolveParam(param)
+    if (param) then
+        local this = ContextBoard.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

@@ -4,14 +4,14 @@ require("ArrayList")
 AIWorkerGroups = { }
 AIWorkerGroups.__index = AIWorkerGroups
 
-function AIWorkerGroups.Create(workerTypes)
+function AIWorkerGroups.Create(workerTypeConfig)
     local this = ArrayList.Create()
     --Constants
     local logger = TreeCore.CreateLogger("AIWorkerGroups.lua")
 
     logger.Verbose("Started Building AIWorkerGroups")
 
-    this.workerTypes = workerTypes
+    this.workerTypeConfig = workerTypeConfig
 
     this.idleIndexes = ArrayList.Create({
         PopByUnitType = function(type)
@@ -39,11 +39,11 @@ function AIWorkerGroups.Create(workerTypes)
         for j = #group.workerIndexes + 1, group.amountOfWorkers do
             local worker
             if group.orderType == Ids.orderTypes.ORDER_GOLDMINE then
-                worker = this.idleIndexes.PopByUnitType(this.workerTypes.gold)
+                worker = this.idleIndexes.PopByUnitType(this.workerTypeConfig.gold)
             elseif group.orderType == Ids.orderTypes.ORDER_WOOD then
-                worker = this.idleIndexes.PopByUnitType(this.workerTypes.wood)
+                worker = this.idleIndexes.PopByUnitType(this.workerTypeConfig.wood)
             elseif group.orderType == Ids.orderTypes.ORDER_BUILD then
-                worker = this.idleIndexes.PopByUnitType(this.workerTypes.build)
+                worker = this.idleIndexes.PopByUnitType(this.workerTypeConfig.build)
             end
             if not (worker == nil) then
                 group.workerIndexes[#group.workerIndexes + 1] = worker
@@ -60,4 +60,14 @@ function AIWorkerGroups.Create(workerTypes)
 
     logger.Verbose("Finish Building AIWorkerGroups")
     return this
+end
+
+function AIWorkerGroups.ResolveParam(param)
+    if (param) then
+        local this = AIWorkerGroups.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

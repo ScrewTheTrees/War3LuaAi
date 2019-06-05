@@ -1,5 +1,6 @@
 require("TreeCore")
 require("ArrayList")
+require("AITownAllocator")
 
 AIBuildings = { }
 AIBuildings.__index = AIBuildings
@@ -17,6 +18,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
 
     local logger = TreeCore.CreateLogger("AIBuildings.lua")
     logger.Verbose("Started Building AIBuildings")
+    this.aiTownAllocator = AITownAllocator.ResolveParam(aiTownAllocator)
 
     function this.Push(unit, status, townIndex)
         this[#this + 1] = { unit = unit, status = status, targetType = nil, townIndex = townIndex }
@@ -51,8 +53,8 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onStartConstruct.action = TriggerAddAction(this.onStartConstruct.trigger, function()
         local building = GetTriggerUnit()
         local loc = GetUnitLoc(building)
-        aiTownAllocator.MakeTown(building)
-        this.Push(building, AIBuildings.statuses.CONSTRUCTING, aiTownAllocator.GetClosestTownId(loc))
+        this.aiTownAllocator.MakeTown(building)
+        this.Push(building, AIBuildings.statuses.CONSTRUCTING, this.aiTownAllocator.GetClosestTownId(loc))
         RemoveLocation(loc)
     end)
     this.onCancelConstruct = {}
@@ -137,4 +139,14 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     end)
 
     return this
+end
+
+function AIBuildings.ResolveParam(param)
+    if (param) then
+        local this = AIBuildings.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
 end

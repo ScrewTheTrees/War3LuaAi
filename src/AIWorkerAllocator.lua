@@ -43,3 +43,13 @@ function AIWorkerAllocator.Create(aiPlayer)
     logger.Verbose("Finish Building AIWorkerAllocator")
     return this
 end
+
+function AIWorkerAllocator.ResolveParam(param)
+    if (param) then
+        local this = AIWorkerAllocator.Create()
+        for k, v in pairs(param) do
+            this[k] = v
+        end
+        return this
+    end
+end
