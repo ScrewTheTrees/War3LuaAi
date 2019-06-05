@@ -5,10 +5,8 @@ require("Targeting")
 AITownBuildingLocation = { }
 AITownBuildingLocation.__index = AITownBuildingLocation
 AITownBuildingLocation.sizes = {
-    TINY = 64,
-    SMALL = 128,
-    MEDIUM = 192,
-    LARGE = 256,
+    TINY = 32,
+    SMALL = 64,
 }
 
 function AITownBuildingLocation.Create()
@@ -29,7 +27,7 @@ function AITownBuildingLocation.Create()
         startX = math.floor(startX / stepSize) * stepSize
         startY = math.floor(startY / stepSize) * stepSize
 
-        for i = 1, 2500 do -- TODO: Check how many of these i actually need.
+        for i = 1, 10000 do -- TODO: Check how many of these i actually need.
             if (this.CheckLoc(startX + x, startY - range, unitType, builderType)) then
                 return Location(startX + x, startY - range)
             end

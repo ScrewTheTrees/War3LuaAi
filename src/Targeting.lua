@@ -3,27 +3,27 @@ require("Utils")
 
 Targeting = { }
 Targeting.__index = Targeting
+Targeting.builders = {}
 
 function Targeting.Create()
     local this = { }
     --Constants
     local logger = TreeCore.CreateLogger("Targeting.lua")
 
-    local builders = {}
-    function builders.Get(builderType)
-        if not (builders[builderType]) then
+    function Targeting.builders.Get(builderType)
+        if not (Targeting.builders[builderType]) then
             local worker = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), Utils.FourCC(builderType), 32000, 32000, 0)
-            builders[builderType] = worker
+            Targeting.builders[builderType] = worker
             SetUnitInvulnerable(worker, true)
             ShowUnit(worker, false)
         end
-        return builders[builderType]
+        return Targeting.builders[builderType]
     end
 
     logger.Verbose("Started Building AITargeting")
 
     function this.CanBuildUnitAt(unitType, location, builderType)
-        local builder = builders.Get(builderType)
+        local builder = Targeting.builders.Get(builderType)
         ShowUnit(worker, true)
         local order = IssueBuildOrderById(builder, Utils.FourCC(unitType), GetLocationX(location), GetLocationY(location))
         IssueImmediateOrder(builder, "hold")

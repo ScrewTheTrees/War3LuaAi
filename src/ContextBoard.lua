@@ -151,7 +151,8 @@ function ContextBoard.Create(aiPlayer, aiRace)
             elseif msg == "-bw" then
                 this.type = ContextBoard.types.BUILDERWORKER
             elseif msg == "-build" then
-                AITownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", AITownBuildingLocation.sizes.SMALL)
+                local l = AITownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", AITownBuildingLocation.sizes.SMALL)
+                CreateItem(Utils.FourCC("rde2"), GetLocationX(l), GetLocationY(l))
             elseif msg == "-reset" then
                 aiRace.moduleWorker.UpdateOrdersForWorkers(true)
             end
