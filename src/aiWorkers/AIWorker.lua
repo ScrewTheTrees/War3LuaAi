@@ -1,12 +1,12 @@
 require("TreeCore")
-require("Utils")
-require("AIWorkerAllocator")
-require("AITownAllocator")
-require("AIWorkerGroups")
+require("utils.Utils")
+require("aiWorkers.AIWorkerAllocator")
+require("aiTownHandler.AITownAllocator")
+require("aiWorkers.AIWorkerGroups")
 require("AIBuildings")
-require("ArrayList")
+require("utils.ArrayList")
 require("Ids")
-require("WorkerTypeConfig")
+require("aiWorkers.WorkerTypeConfig")
 require("AIConstructor")
 
 AIWorker = { }

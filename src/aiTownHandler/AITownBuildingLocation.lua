@@ -1,6 +1,6 @@
 require("TreeCore")
-require("Utils")
-require("Targeting")
+require("utils.Utils")
+require("utils.Targeting")
 
 AITownBuildingLocation = { }
 AITownBuildingLocation.sizes = {

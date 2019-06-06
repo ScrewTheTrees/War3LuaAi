@@ -1,8 +1,8 @@
 require("TreeCore")
 require("AICreep")
-require("AIWorker")
+require("aiWorkers.AIWorker")
 require("AIAbstractRace")
-require("WorkerTypeConfig")
+require("aiWorkers.WorkerTypeConfig")
 
 AIRaceHuman = { }
 

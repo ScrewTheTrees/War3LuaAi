@@ -4,7 +4,7 @@ require("AIRaceOrc")
 require("AIRaceUndead")
 require("AIRaceNightElf")
 require("ContextBoard")
-require("ArrayList")
+require("utils.ArrayList")
 
 AICore = { }
 

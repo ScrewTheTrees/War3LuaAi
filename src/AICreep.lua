@@ -1,5 +1,5 @@
 require("TreeCore")
-require("ArrayList")
+require("utils.ArrayList")
 
 AICreep = { }
 

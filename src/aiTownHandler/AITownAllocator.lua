@@ -1,6 +1,6 @@
 require("TreeCore")
-require("Utils")
-require("ArrayList")
+require("utils.Utils")
+require("utils.ArrayList")
 require("Ids")
 
 AITownAllocator = { }
@@ -9,11 +9,10 @@ function AITownAllocator.Create(aiPlayer)
     local this = ArrayList.Create()
     this.type = "AITownAllocator"
     local logger = TreeCore.CreateLogger("AITownAllocator.lua")
-
     logger.Verbose("Started Building AITownAllocator")
 
     --CODE
-    function this.Push (location, hall, mine)
+    function this.Push(location, hall, mine)
         local w = { location = location, hall = hall, mine = mine }
         this[#this + 1] = w
     end

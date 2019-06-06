@@ -1,8 +1,8 @@
 require("TreeCore")
-require("Utils")
-require("MouseLoc")
-require("Targeting")
-require("AITownBuildingLocation")
+require("utils.Utils")
+require("utils.MouseLoc")
+require("utils.Targeting")
+require("aiTownHandler.AITownBuildingLocation")
 
 ContextBoard = { }
 ContextBoard.types = {

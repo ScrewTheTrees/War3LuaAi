@@ -1,8 +1,8 @@
 require("TreeCore")
-require("ArrayList")
+require("utils.ArrayList")
 require("AIBuildings")
-require("AITownAllocator")
-require("AIWorkerGroups")
+require("aiTownHandler.AITownAllocator")
+require("aiWorkers.AIWorkerGroups")
 
 AIConstructor = { }
 

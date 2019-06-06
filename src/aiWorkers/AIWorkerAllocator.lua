@@ -1,6 +1,6 @@
 require("TreeCore")
-require("Utils")
-require("ArrayList")
+require("utils.Utils")
+require("utils.ArrayList")
 require("Ids")
 
 AIWorkerAllocator = { }
