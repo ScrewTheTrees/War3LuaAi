@@ -1,8 +1,8 @@
 ArrayList = { }
-ArrayList.__index = ArrayList
 
 function ArrayList.Create(extension, ordered)
     local this = { }
+    this.type = "ArrayList"
 
     this.isOrdered = ordered or false
 
@@ -82,11 +82,10 @@ function ArrayList.Create(extension, ordered)
 end
 
 function ArrayList.ResolveParam(param)
-    if (param) then
-        local this = ArrayList.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return ArrayList.Create()
+    end
+    if (param and param.type == "ArrayList") then
+        return param
     end
 end

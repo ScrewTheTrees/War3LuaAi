@@ -10,10 +10,10 @@ require("WorkerTypeConfig")
 require("AIConstructor")
 
 AIWorker = { }
-AIWorker.__index = AIWorker
 
 AIWorker.Create = function(aiPlayer, workerTypeConfig)
     local this = { }
+    this.type = "AIWorker"
     local logger = TreeCore.CreateLogger("AIWorker.lua")
     logger.Verbose("Started Building AIWorker")
 
@@ -122,11 +122,10 @@ AIWorker.Create = function(aiPlayer, workerTypeConfig)
     return this
 end
 function AIWorker.ResolveParam(param)
-    if (param) then
-        local this = AIWorker.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AIWorker.Create()
+    end
+    if (param and param.type == "AIWorker") then
+        return param
     end
 end

@@ -5,10 +5,11 @@ AICreep = { }
 
 function AICreep.Create()
     local this = ArrayList.Create()
-    --CONSTANTS
+    this.type = "AICreep"
+    local logger = TreeCore.CreateLogger("AICreep.lua")
+
     local campRadius = 832
     local neutralPlayer = Player(GetPlayerNeutralAggressive())
-    local logger = TreeCore.CreateLogger("AICreep.lua")
 
     local neutralUnitFilter = Filter(function()
         if (GetOwningPlayer(GetFilterUnit()) == neutralPlayer) then
@@ -59,11 +60,10 @@ function AICreep.Create()
 end
 
 function AICreep.ResolveParam(param)
-    if (param) then
-        local this = AICreep.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AICreep.Create()
+    end
+    if (param and param.type == "AICreep") then
+        return param
     end
 end

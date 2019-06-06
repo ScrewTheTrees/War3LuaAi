@@ -1,11 +1,10 @@
 require("TreeCore")
 
 WorkerTypeConfig = { }
-WorkerTypeConfig.__index = WorkerTypeConfig
 
 function WorkerTypeConfig.Create(goldUnitType, woodUnitType, buildUnitType, buildIdleOrder)
     local this = { }
-    --Constants
+    this.type = "WorkerTypeConfig"
     local logger = TreeCore.CreateLogger("WorkerTypeConfig.lua")
     logger.Verbose("Started Building WorkerTypeConfig")
 
@@ -19,11 +18,10 @@ function WorkerTypeConfig.Create(goldUnitType, woodUnitType, buildUnitType, buil
 end
 
 function WorkerTypeConfig.ResolveParam(param)
-    if (param) then
-        local this = WorkerTypeConfig.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return WorkerTypeConfig.Create()
+    end
+    if (param and param.type == "WorkerTypeConfig") then
+        return param
     end
 end

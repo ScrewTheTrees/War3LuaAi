@@ -1,11 +1,10 @@
 require("TreeCore")
 
 Promise = { }
-Promise.__index = Promise
 
 function Promise.Create()
     local this = { }
-    --Constants
+    this.type = "Promise"
     local logger = TreeCore.CreateLogger("Promise.lua")
     local callbackSuccess
     local callbackError
@@ -33,11 +32,10 @@ function Promise.Create()
 end
 
 function Promise.ResolveParam(param)
-    if (param) then
-        local this = Promise.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return Promise.Create()
+    end
+    if (param and param.type == "Promise") then
+        return param
     end
 end

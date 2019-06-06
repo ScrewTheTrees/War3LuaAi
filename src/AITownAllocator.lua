@@ -4,11 +4,10 @@ require("ArrayList")
 require("Ids")
 
 AITownAllocator = { }
-AITownAllocator.__index = AITownAllocator
 
 function AITownAllocator.Create(aiPlayer)
     local this = ArrayList.Create()
-    --Constants
+    this.type = "AITownAllocator"
     local logger = TreeCore.CreateLogger("AITownAllocator.lua")
 
     logger.Verbose("Started Building AITownAllocator")
@@ -56,11 +55,10 @@ function AITownAllocator.Create(aiPlayer)
 end
 
 function AITownAllocator.ResolveParam(param)
-    if (param) then
-        local this = AITownAllocator.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AITownAllocator.Create()
+    end
+    if (param and param.type == "AITownAllocator") then
+        return param
     end
 end

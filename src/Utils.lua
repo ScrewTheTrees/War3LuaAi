@@ -1,7 +1,6 @@
 require("Ids")
 
 Utils = { }
-Utils.__index = Utils
 
 function Utils.FourCC(id)
     return string.unpack(">I4", id)

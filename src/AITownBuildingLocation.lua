@@ -3,7 +3,6 @@ require("Utils")
 require("Targeting")
 
 AITownBuildingLocation = { }
-AITownBuildingLocation.__index = AITownBuildingLocation
 AITownBuildingLocation.sizes = {
     TINY = 32,
     SMALL = 96,
@@ -12,11 +11,9 @@ AITownBuildingLocation.sizes = {
 
 function AITownBuildingLocation.Create()
     local this = { }
-
-    --Constants
+    this.type = "AITownBuildingLocation"
     local logger = TreeCore.CreateLogger("AITownBuildingLocation.lua")
     local targeting = Targeting.Create()
-
 
     logger.Verbose("Started Building AITownBuildingLocation")
 
@@ -28,7 +25,8 @@ function AITownBuildingLocation.Create()
         startX = math.floor(startX / stepSize) * stepSize
         startY = math.floor(startY / stepSize) * stepSize
 
-        for i = 1, 10000 do -- TODO: Check how many of these i actually need.
+        for i = 1, 10000 do
+            -- TODO: Check how many of these i actually need.
             if (this.CheckLoc(startX + x, startY - range, unitType, builderType)) then
                 return Location(startX + x, startY - range)
             end
@@ -68,11 +66,10 @@ function AITownBuildingLocation.Create()
 end
 
 function AITownBuildingLocation.ResolveParam(param)
-    if (param) then
-        local this = AITownBuildingLocation.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AITownBuildingLocation.Create()
+    end
+    if (param and param.type == "AITownBuildingLocation") then
+        return param
     end
 end

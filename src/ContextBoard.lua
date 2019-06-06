@@ -5,7 +5,6 @@ require("Targeting")
 require("AITownBuildingLocation")
 
 ContextBoard = { }
-ContextBoard.__index = ContextBoard
 ContextBoard.types = {
     WORKER = "WORKER",
     BUILDINGS = "BUILDINGS",
@@ -16,7 +15,7 @@ ContextBoard.types = {
 
 function ContextBoard.Create(aiPlayer, aiRace)
     local this = { }
-    setmetatable(this, ContextBoard)
+    this.type = "ContextBoard"
     --Constants
     local logger = TreeCore.CreateLogger("ContextBoard.lua")
 
@@ -163,11 +162,10 @@ function ContextBoard.Create(aiPlayer, aiRace)
     return this
 end
 function ContextBoard.ResolveParam(param)
-    if (param) then
-        local this = ContextBoard.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return ContextBoard.Create()
+    end
+    if (param and param.type == "ContextBoard") then
+        return param
     end
 end

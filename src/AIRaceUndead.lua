@@ -5,11 +5,10 @@ require("AIAbstractRace")
 require("WorkerTypeConfig")
 
 AIRaceUndead = { }
-AIRaceUndead.__index = AIRaceUndead
 
 function AIRaceUndead.Create(aiPlayer)
     local this = AIAbstractRace.Create(aiPlayer)
-
+    this.type = "AIRaceUndead"
     local logger = TreeCore.CreateLogger("AIRaceUndead.lua")
     logger.Verbose("Make AIRaceUndead")
 
@@ -29,11 +28,10 @@ function AIRaceUndead.Create(aiPlayer)
 end
 
 function AIRaceUndead.ResolveParam(param)
-    if (param) then
-        local this = AIRaceUndead.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AIRaceUndead.Create()
+    end
+    if (param and param.type == "AIRaceUndead") then
+        return param
     end
 end

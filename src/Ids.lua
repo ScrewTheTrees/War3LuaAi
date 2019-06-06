@@ -1,5 +1,4 @@
 Ids = { }
-Ids.__index = Ids
 
 Ids.hallIds = {
     htow = "htow",

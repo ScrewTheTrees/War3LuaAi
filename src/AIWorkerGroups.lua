@@ -2,11 +2,10 @@ require("TreeCore")
 require("ArrayList")
 
 AIWorkerGroups = { }
-AIWorkerGroups.__index = AIWorkerGroups
 
 function AIWorkerGroups.Create(workerTypeConfig)
     local this = ArrayList.Create()
-    --Constants
+    this.type = "AIWorkerGroups"
     local logger = TreeCore.CreateLogger("AIWorkerGroups.lua")
 
     logger.Verbose("Started Building AIWorkerGroups")
@@ -63,11 +62,10 @@ function AIWorkerGroups.Create(workerTypeConfig)
 end
 
 function AIWorkerGroups.ResolveParam(param)
-    if (param) then
-        local this = AIWorkerGroups.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AIWorkerGroups.Create()
+    end
+    if (param and param.type == "AIWorkerGroups") then
+        return param
     end
 end

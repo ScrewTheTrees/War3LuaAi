@@ -6,11 +6,10 @@ require("WorkerTypeConfig")
 
 
 AIRaceNightElf = { }
-AIRaceNightElf.__index = AIRaceNightElf
 
 function AIRaceNightElf.Create(aiPlayer)
     local this = AIAbstractRace.Create(aiPlayer)
-
+    this.type = "AIRaceNightElf"
     local logger = TreeCore.CreateLogger("AIRaceNightElf.lua")
     logger.Verbose("Make AIRaceNightElf")
 
@@ -29,11 +28,10 @@ function AIRaceNightElf.Create(aiPlayer)
 end
 
 function AIRaceNightElf.ResolveParam(param)
-    if (param) then
-        local this = AIRaceNightElf.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AIRaceNightElf.Create()
+    end
+    if (param and param.type == "AIRaceNightElf") then
+        return param
     end
 end

@@ -1,11 +1,10 @@
 require("TreeCore")
 
 MouseLoc = { }
-MouseLoc.__index = MouseLoc
 
 function MouseLoc.Create(aiPlayer)
     local this = { }
-    --Constants
+    this.type = "MouseLoc"
     local logger = TreeCore.CreateLogger("MouseLoc.lua")
 
     logger.Verbose("Started Building MouseLoc")
@@ -28,11 +27,10 @@ function MouseLoc.Create(aiPlayer)
 end
 
 function MouseLoc.ResolveParam(param)
-    if (param) then
-        local this = MouseLoc.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return MouseLoc.Create()
+    end
+    if (param and param.type == "MouseLoc") then
+        return param
     end
 end

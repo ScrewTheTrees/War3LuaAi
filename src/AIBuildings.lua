@@ -3,7 +3,6 @@ require("ArrayList")
 require("AITownAllocator")
 
 AIBuildings = { }
-AIBuildings.__index = AIBuildings
 
 AIBuildings.statuses = {
     IDLE = "IDLE",
@@ -15,7 +14,7 @@ AIBuildings.statuses = {
 
 function AIBuildings.Create(aiPlayer, aiTownAllocator)
     local this = ArrayList.Create()
-
+    this.type = "AIBuildings"
     local logger = TreeCore.CreateLogger("AIBuildings.lua")
     logger.Verbose("Started Building AIBuildings")
     this.aiTownAllocator = AITownAllocator.ResolveParam(aiTownAllocator)
@@ -142,11 +141,10 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
 end
 
 function AIBuildings.ResolveParam(param)
-    if (param) then
-        local this = AIBuildings.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AIBuildings.Create()
+    end
+    if (param and param.type == "AIBuildings") then
+        return param
     end
 end

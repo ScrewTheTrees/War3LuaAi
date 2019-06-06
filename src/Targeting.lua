@@ -2,12 +2,11 @@ require("TreeCore")
 require("Utils")
 
 Targeting = { }
-Targeting.__index = Targeting
 Targeting.builders = {}
 
 function Targeting.Create()
     local this = { }
-    --Constants
+    this.type = "Targeting"
     local logger = TreeCore.CreateLogger("Targeting.lua")
 
     function Targeting.builders.Get(builderType)
@@ -39,11 +38,10 @@ function Targeting.Create()
 end
 
 function Targeting.ResolveParam(param)
-    if (param) then
-        local this = Targeting.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return Targeting.Create()
+    end
+    if (param and param.type == "Targeting") then
+        return param
     end
 end

@@ -1,7 +1,6 @@
 require("Utils")
 
 TreeCore = { }
-TreeCore.__index = TreeCore
 
 TreeCore.version = 1
 

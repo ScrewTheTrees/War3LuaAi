@@ -7,11 +7,10 @@ require("ContextBoard")
 require("ArrayList")
 
 AICore = { }
-AICore.__index = AICore
 
 function AICore.Create()
     local this = { }
-    --Constants
+    this.type = "AICore"
     local logger = TreeCore.CreateLogger("AICore.lua")
 
     logger.Verbose("Started Building AICore")
@@ -52,11 +51,10 @@ function AICore.Create()
 end
 
 function AICore.ResolveParam(param)
-    if (param) then
-        local this = AICore.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AICore.Create()
+    end
+    if (param and param.type == "AICore") then
+        return param
     end
 end

@@ -1,11 +1,10 @@
 require("TreeCore")
 
 AIAbstractRace = { }
-AIAbstractRace.__index = AIAbstractRace
 
 function AIAbstractRace.Create(aiPlayer)
     local this = { }
-    --Constants
+    this.type = "AIAbstractRace"
     local logger = TreeCore.CreateLogger("AIAbstractRace.lua")
 
     logger.Verbose("Started Building AIRaceInterface")
@@ -25,11 +24,10 @@ function AIAbstractRace.Create(aiPlayer)
 end
 
 function AIAbstractRace.ResolveParam(param)
-    if (param) then
-        local this = AIAbstractRace.Create()
-        for k, v in pairs(param) do
-            this[k] = v
-        end
-        return this
+    if (true == false) then
+        return AIAbstractRace.Create()
+    end
+    if (param and param.type == "AIAbstractRace") then
+        return param
     end
 end
