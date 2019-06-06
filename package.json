@@ -1,0 +1,12 @@
+{
+  "name": "SuperAi",
+  "author": "Fredrik Grimmenhag (ScrewTheTrees)",
+  "description": "Qualiy package.",
+  "version": "1.0.0",
+  "dependencies": {
+    
+  },
+  "scripts": {
+    "buildAndRun": "tools/ceres/ceres.exe run (4)frozenclover_gay"
+  }
+}

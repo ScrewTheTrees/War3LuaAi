@@ -1,0 +1,5 @@
+[run]
+# normal names : ceres.toml
+# if you're using backslashes, double them
+wc3_start_command = "w3Directory"
+window_mode = "windowed"
