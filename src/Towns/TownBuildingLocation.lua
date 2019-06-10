@@ -3,20 +3,20 @@ require("Param")
 require("utils.Utils")
 require("utils.Targeting")
 
-AITownBuildingLocation = { }
-AITownBuildingLocation.sizes = {
+TownBuildingLocation = { }
+TownBuildingLocation.sizes = {
     TINY = 32,
     SMALL = 96,
     MEDIUM = 128,
 }
 
-function AITownBuildingLocation.Create()
+function TownBuildingLocation.Create()
     local this = { }
-    this.type = "AITownBuildingLocation"
-    local logger = TreeCore.CreateLogger("AITownBuildingLocation.lua")
+    this.type = "TownBuildingLocation"
+    local logger = TreeCore.CreateLogger("TownBuildingLocation.lua")
     local targeting = Targeting.Create()
 
-    logger.Verbose("Started Building AITownBuildingLocation")
+    logger.Verbose("Started Building TownBuildingLocation")
 
     function this.GetTownBuildingLocation(startX, startY, unitType, builderType, size)
         local stepSize = size
@@ -62,13 +62,13 @@ function AITownBuildingLocation.Create()
         return ret
     end
 
-    logger.Verbose("Finish Building AITownBuildingLocation")
+    logger.Verbose("Finish Building TownBuildingLocation")
     return this
 end
 
-function AITownBuildingLocation.ResolveParam(param)
+function TownBuildingLocation.ResolveParam(param)
     if (true == false) then
-        return AITownBuildingLocation.Create()
+        return TownBuildingLocation.Create()
     end
-    return Param.Resolve(param, "AITownBuildingLocation")
+    return Param.Resolve(param, "TownBuildingLocation")
 end

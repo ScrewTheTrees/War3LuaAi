@@ -3,7 +3,7 @@ require("Param")
 require("utils.Utils")
 require("utils.MouseLoc")
 require("utils.Targeting")
-require("TownHandler.AITownBuildingLocation")
+require("Towns.TownBuildingLocation")
 
 ContextBoard = { }
 ContextBoard.types = {
@@ -151,7 +151,7 @@ function ContextBoard.Create(aiPlayer, aiRace)
             elseif msg == "-bw" then
                 this.type = ContextBoard.types.BUILDERWORKER
             elseif msg == "-build" then
-                local l = AITownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", AITownBuildingLocation.sizes.SMALL)
+                local l = TownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", TownBuildingLocation.sizes.SMALL)
                 CreateItem(Utils.FourCC("rde2"), GetLocationX(l), GetLocationY(l))
             elseif msg == "-reset" then
                 aiRace.moduleWorker.UpdateOrdersForWorkers(true)

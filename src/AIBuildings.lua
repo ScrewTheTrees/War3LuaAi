@@ -1,7 +1,7 @@
 require("TreeCore")
 require("Param")
 require("utils.ArrayList")
-require("TownHandler.AITownAllocator")
+require("Towns.TownAllocator")
 
 AIBuildings = { }
 
@@ -18,7 +18,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.type = "AIBuildings"
     local logger = TreeCore.CreateLogger("AIBuildings.lua")
     logger.Verbose("Started Building AIBuildings")
-    this.aiTownAllocator = AITownAllocator.ResolveParam(aiTownAllocator)
+    this.aiTownAllocator = TownAllocator.ResolveParam(aiTownAllocator)
 
     function this.Push(unit, status, townIndex)
         this[#this + 1] = { unit = unit, status = status, targetType = nil, townIndex = townIndex }

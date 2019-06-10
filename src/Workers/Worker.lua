@@ -12,7 +12,6 @@ function Worker.Create(unit)
     this.unit = unit
     this.order = Ids.orderTypes.ORDER_IDLE
     this.unitType = Utils.CCInteger(GetUnitTypeId(unit))
-    --CODE
 
     logger.Verbose("Finish Building Worker")
     return this

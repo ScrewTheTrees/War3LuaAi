@@ -4,13 +4,13 @@ require("utils.Utils")
 require("utils.ArrayList")
 require("Ids")
 
-AITownAllocator = { }
+TownAllocator = { }
 
-function AITownAllocator.Create(aiPlayer)
+function TownAllocator.Create(aiPlayer)
     local this = ArrayList.Create()
-    this.type = "AITownAllocator"
-    local logger = TreeCore.CreateLogger("AITownAllocator.lua")
-    logger.Verbose("Started Building AITownAllocator")
+    this.type = "TownAllocator"
+    local logger = TreeCore.CreateLogger("TownAllocator.lua")
+    logger.Verbose("Started Building TownAllocator")
 
     --CODE
     function this.Push(location, hall, mine)
@@ -50,13 +50,13 @@ function AITownAllocator.Create(aiPlayer)
     local halls = Utils.GetStartUnits(aiPlayer, Ids.hallIds)
     this.Push(GetUnitLoc(halls[1]), halls[1], mines[1])
 
-    logger.Verbose("Finish Building AITownAllocator")
+    logger.Verbose("Finish Building TownAllocator")
     return this
 end
 
-function AITownAllocator.ResolveParam(param)
+function TownAllocator.ResolveParam(param)
     if (true == false) then
-        return AITownAllocator.Create()
+        return TownAllocator.Create()
     end
-    return Param.Resolve(param, "AITownAllocator")
+    return Param.Resolve(param, "TownAllocator")
 end
