@@ -37,3 +37,17 @@ function TreeCore.CreateLogger(name)
 
     return this
 end
+
+TreeCore.logger = TreeCore.CreateLogger("Generic")
+function TreeCore.VerboseGeneric(...)
+    TreeCore.logger.Verbose(...)
+end
+function TreeCore.DebugGeneric(...)
+    TreeCore.logger.Debug(...)
+end
+function TreeCore.WarningGeneric(...)
+    TreeCore.logger.Warning(...)
+end
+function TreeCore.CriticalGeneric(...)
+    TreeCore.logger.Critical(...)
+end

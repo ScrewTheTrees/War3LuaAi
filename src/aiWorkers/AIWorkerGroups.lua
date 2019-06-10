@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.ArrayList")
 
 AIWorkerGroups = { }
@@ -65,7 +66,5 @@ function AIWorkerGroups.ResolveParam(param)
     if (true == false) then
         return AIWorkerGroups.Create()
     end
-    if (param and param.type == "AIWorkerGroups") then
-        return param
-    end
+    return Param.Resolve(param, "AIWorkerGroups")
 end

@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 
 AIAbstractRace = { }
 
@@ -27,7 +28,5 @@ function AIAbstractRace.ResolveParam(param)
     if (true == false) then
         return AIAbstractRace.Create()
     end
-    if (param and param.type == "AIAbstractRace") then
-        return param
-    end
+    return Param.Resolve(param, "AIAbstractRace")
 end

@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 
 WorkerTypeConfig = { }
 
@@ -21,7 +22,5 @@ function WorkerTypeConfig.ResolveParam(param)
     if (true == false) then
         return WorkerTypeConfig.Create()
     end
-    if (param and param.type == "WorkerTypeConfig") then
-        return param
-    end
+    return Param.Resolve(param, "WorkerTypeConfig")
 end

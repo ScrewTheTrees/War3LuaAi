@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("AIRaceHuman")
 require("AIRaceOrc")
 require("AIRaceUndead")
@@ -17,10 +18,9 @@ function AICore.Create()
 
     this.ai = ArrayList.Create()
 
-    --TODO:
     for i = 0, GetPlayerNeutralAggressive() - 1 do
         local p = Player(i)
-        if (GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING) then --and GetPlayerController(p) == MAP_CONTROL_COMPUTER
+        if (GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING) then
             local race = GetPlayerRace(p)
             if race == RACE_HUMAN then
                 this.ai.Push(AIRaceHuman.Create(Player(i)))
@@ -54,7 +54,5 @@ function AICore.ResolveParam(param)
     if (true == false) then
         return AICore.Create()
     end
-    if (param and param.type == "AICore") then
-        return param
-    end
+    return Param.Resolve(param, "AICore")
 end

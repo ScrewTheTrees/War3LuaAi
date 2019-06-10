@@ -7,6 +7,6 @@
     
   },
   "scripts": {
-    "buildAndRun": "tools/ceres/ceres.exe run (4)frozenclover_gay"
+    "buildAndRun": "ceres.exe run (4)frozenclover_gay.w3x"
   }
 }

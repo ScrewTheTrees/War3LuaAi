@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.ArrayList")
 
 AICreep = { }
@@ -63,7 +64,5 @@ function AICreep.ResolveParam(param)
     if (true == false) then
         return AICreep.Create()
     end
-    if (param and param.type == "AICreep") then
-        return param
-    end
+    return Param.Resolve(param, "AICreep")
 end

@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 
 MouseLoc = { }
 
@@ -30,7 +31,5 @@ function MouseLoc.ResolveParam(param)
     if (true == false) then
         return MouseLoc.Create()
     end
-    if (param and param.type == "MouseLoc") then
-        return param
-    end
+    return Param.Resolve(param, "MouseLoc")
 end

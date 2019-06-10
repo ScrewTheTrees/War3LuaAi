@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.ArrayList")
 require("AIBuildings")
 require("aiTownHandler.AITownAllocator")
@@ -30,7 +31,5 @@ function AIConstructor.ResolveParam(param)
     if (true == false) then
         return AIConstructor.Create()
     end
-    if (param and param.type == "AIConstructor") then
-        return param
-    end
+    return Param.Resolve(param, "AIConstructor")
 end

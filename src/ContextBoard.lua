@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.Utils")
 require("utils.MouseLoc")
 require("utils.Targeting")
@@ -165,7 +166,5 @@ function ContextBoard.ResolveParam(param)
     if (true == false) then
         return ContextBoard.Create()
     end
-    if (param and param.type == "ContextBoard") then
-        return param
-    end
+    return Param.Resolve(param, "ContextBoard")
 end

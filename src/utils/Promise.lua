@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 
 Promise = { }
 
@@ -35,7 +36,5 @@ function Promise.ResolveParam(param)
     if (true == false) then
         return Promise.Create()
     end
-    if (param and param.type == "Promise") then
-        return param
-    end
+    return Param.Resolve(param, "Promise")
 end

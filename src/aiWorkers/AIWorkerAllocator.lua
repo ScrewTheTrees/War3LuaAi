@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.Utils")
 require("utils.ArrayList")
 require("Ids")
@@ -47,7 +48,5 @@ function AIWorkerAllocator.ResolveParam(param)
     if (true == false) then
         return AIWorkerAllocator.Create()
     end
-    if (param and param.type == "AIWorkerAllocator") then
-        return param
-    end
+    return Param.Resolve(param, "AIWorkerAllocator")
 end

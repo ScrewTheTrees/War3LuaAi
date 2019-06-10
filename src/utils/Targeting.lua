@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.Utils")
 
 Targeting = { }
@@ -41,7 +42,5 @@ function Targeting.ResolveParam(param)
     if (true == false) then
         return Targeting.Create()
     end
-    if (param and param.type == "Targeting") then
-        return param
-    end
+    return Param.Resolve(param, "Targeting")
 end

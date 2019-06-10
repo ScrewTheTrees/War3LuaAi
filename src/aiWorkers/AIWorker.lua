@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.Utils")
 require("aiWorkers.AIWorkerAllocator")
 require("aiTownHandler.AITownAllocator")
@@ -125,7 +126,5 @@ function AIWorker.ResolveParam(param)
     if (true == false) then
         return AIWorker.Create()
     end
-    if (param and param.type == "AIWorker") then
-        return param
-    end
+    return Param.Resolve(param, "AIWorker")
 end

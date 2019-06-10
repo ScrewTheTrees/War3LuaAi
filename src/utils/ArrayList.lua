@@ -85,7 +85,5 @@ function ArrayList.ResolveParam(param)
     if (true == false) then
         return ArrayList.Create()
     end
-    if (param and param.type == "ArrayList") then
-        return param
-    end
+    return Param.Resolve(param, "ArrayList")
 end

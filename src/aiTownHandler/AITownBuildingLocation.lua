@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("utils.Utils")
 require("utils.Targeting")
 
@@ -69,7 +70,5 @@ function AITownBuildingLocation.ResolveParam(param)
     if (true == false) then
         return AITownBuildingLocation.Create()
     end
-    if (param and param.type == "AITownBuildingLocation") then
-        return param
-    end
+    return Param.Resolve(param, "AITownBuildingLocation")
 end

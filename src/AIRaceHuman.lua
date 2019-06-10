@@ -1,4 +1,5 @@
 require("TreeCore")
+require("Param")
 require("AICreep")
 require("aiWorkers.AIWorker")
 require("AIAbstractRace")
@@ -31,7 +32,5 @@ function AIRaceHuman.ResolveParam(param)
     if (true == false) then
         return AIRaceHuman.Create()
     end
-    if (param and param.type == "AIRaceHuman") then
-        return param
-    end
+    return Param.Resolve(param, "AIRaceHuman")
 end
