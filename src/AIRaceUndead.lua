@@ -1,6 +1,6 @@
 require("TreeCore")
 require("Param")
-require("AICreep")
+require("Creep")
 require("Workers.WorkerHandler")
 require("AIAbstractRace")
 require("Workers.WorkerTypeConfig")

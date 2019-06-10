@@ -3,9 +3,9 @@ require("Param")
 require("utils.ArrayList")
 require("Towns.TownAllocator")
 
-AIBuildings = { }
+Buildings = { }
 
-AIBuildings.statuses = {
+Buildings.statuses = {
     IDLE = "IDLE",
     CONSTRUCTING = "CONSTRUCTING",
     UPGRADING = "UPGRADING",
@@ -13,11 +13,11 @@ AIBuildings.statuses = {
     RESEARCHING = "RESEARCHING",
 }
 
-function AIBuildings.Create(aiPlayer, aiTownAllocator)
+function Buildings.Create(aiPlayer, aiTownAllocator)
     local this = ArrayList.Create()
-    this.type = "AIBuildings"
-    local logger = TreeCore.CreateLogger("AIBuildings.lua")
-    logger.Verbose("Started Building AIBuildings")
+    this.type = "Buildings"
+    local logger = TreeCore.CreateLogger("Buildings.lua")
+    logger.Verbose("Started Building Buildings")
     this.aiTownAllocator = TownAllocator.ResolveParam(aiTownAllocator)
 
     function this.Push(unit, status, townIndex)
@@ -43,9 +43,9 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     end
 
     local halls = Utils.GetStartUnits(aiPlayer, Ids.hallIds)
-    this.Push(halls[1], AIBuildings.statuses.IDLE, 1)
+    this.Push(halls[1], Buildings.statuses.IDLE, 1)
 
-    logger.Verbose("Finish Building AIBuildings")
+    logger.Verbose("Finish Building Buildings")
 
     this.onStartConstruct = {}
     this.onStartConstruct.trigger = CreateTrigger()
@@ -54,7 +54,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
         local building = GetTriggerUnit()
         local loc = GetUnitLoc(building)
         this.aiTownAllocator.MakeTown(building)
-        this.Push(building, AIBuildings.statuses.CONSTRUCTING, this.aiTownAllocator.GetClosestTownId(loc))
+        this.Push(building, Buildings.statuses.CONSTRUCTING, this.aiTownAllocator.GetClosestTownId(loc))
         RemoveLocation(loc)
     end)
     this.onCancelConstruct = {}
@@ -69,7 +69,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onFinishConstruct.event = TriggerRegisterPlayerUnitEvent(this.onFinishConstruct.trigger, aiPlayer, EVENT_PLAYER_UNIT_CONSTRUCT_FINISH, nil)
     this.onFinishConstruct.action = TriggerAddAction(this.onFinishConstruct.trigger, function()
         local building = GetTriggerUnit()
-        this.GetByUnit(building).status = AIBuildings.statuses.IDLE
+        this.GetByUnit(building).status = Buildings.statuses.IDLE
     end)
 
     this.onBuildingDie = {}
@@ -85,7 +85,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onStartTraining.event = TriggerRegisterPlayerUnitEvent(this.onStartTraining.trigger, aiPlayer, EVENT_PLAYER_UNIT_TRAIN_START, nil)
     this.onStartTraining.action = TriggerAddAction(this.onStartTraining.trigger, function()
         local struct = this.GetByUnit(GetTriggerUnit())
-        struct.status = AIBuildings.statuses.TRAINING
+        struct.status = Buildings.statuses.TRAINING
         struct.targetType = Utils.CCInteger(GetTrainedUnitType())
     end)
 
@@ -95,7 +95,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onFinishTraining.event2 = TriggerRegisterPlayerUnitEvent(this.onFinishTraining.trigger, aiPlayer, EVENT_PLAYER_UNIT_TRAIN_FINISH, nil)
     this.onFinishTraining.action = TriggerAddAction(this.onFinishTraining.trigger, function()
         local struct = this.GetByUnit(GetTriggerUnit())
-        struct.status = AIBuildings.statuses.IDLE
+        struct.status = Buildings.statuses.IDLE
         struct.targetType = nil
     end)
 
@@ -105,7 +105,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onStartUpgrade.action = TriggerAddAction(this.onStartUpgrade.trigger, function()
         local struct = this.GetByUnit(GetTriggerUnit())
         print(GetTrainedUnitType())
-        struct.status = AIBuildings.statuses.UPGRADING
+        struct.status = Buildings.statuses.UPGRADING
         struct.targetType = "?"
     end)
 
@@ -115,7 +115,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onFinishUpgrade.event2 = TriggerRegisterPlayerUnitEvent(this.onFinishUpgrade.trigger, aiPlayer, EVENT_PLAYER_UNIT_UPGRADE_CANCEL, nil)
     this.onFinishUpgrade.action = TriggerAddAction(this.onFinishUpgrade.trigger, function()
         local struct = this.GetByUnit(GetTriggerUnit())
-        struct.status = AIBuildings.statuses.IDLE
+        struct.status = Buildings.statuses.IDLE
         struct.targetType = nil
     end)
 
@@ -124,7 +124,7 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onStartResearch.event = TriggerRegisterPlayerUnitEvent(this.onStartResearch.trigger, aiPlayer, EVENT_PLAYER_UNIT_RESEARCH_START, nil)
     this.onStartResearch.action = TriggerAddAction(this.onStartResearch.trigger, function()
         local struct = this.GetByUnit(GetResearchingUnit())
-        struct.status = AIBuildings.statuses.RESEARCHING
+        struct.status = Buildings.statuses.RESEARCHING
         struct.targetType = Utils.CCInteger(GetResearched())
     end)
 
@@ -134,16 +134,16 @@ function AIBuildings.Create(aiPlayer, aiTownAllocator)
     this.onFinishResearch.event2 = TriggerRegisterPlayerUnitEvent(this.onFinishResearch.trigger, aiPlayer, EVENT_PLAYER_UNIT_RESEARCH_CANCEL, nil)
     this.onFinishResearch.action = TriggerAddAction(this.onFinishUpgrade.trigger, function()
         local struct = this.GetByUnit(GetResearchingUnit())
-        struct.status = AIBuildings.statuses.IDLE
+        struct.status = Buildings.statuses.IDLE
         struct.targetType = nil
     end)
 
     return this
 end
 
-function AIBuildings.ResolveParam(param)
+function Buildings.ResolveParam(param)
     if (true == false) then
-        return AIBuildings.Create()
+        return Buildings.Create()
     end
-    return Param.Resolve(param, "AIBuildings")
+    return Param.Resolve(param, "Buildings")
 end

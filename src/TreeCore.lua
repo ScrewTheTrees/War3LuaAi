@@ -1,5 +1,3 @@
-require("utils.Utils")
-
 TreeCore = { }
 
 TreeCore.version = 1
@@ -21,21 +19,30 @@ function TreeCore.CreateLogger(name)
     end
     this.Debug = function(...)
         if (this.printDebug) then
-            print(Utils.RGBTextString(255, 255, 0, this.name, "-> Debug ->", ...))
+            print(TreeCore.RGBTextString(255, 255, 0, this.name, "-> Debug ->", ...))
         end
     end
     this.Warning = function(...)
         if (this.printWarning) then
-            print(Utils.RGBTextString(255, 200, 0, this.name,"-> Warning ->", ...))
+            print(TreeCore.RGBTextString(255, 200, 0, this.name,"-> Warning ->", ...))
         end
     end
     this.Critical = function(...)
         if (this.printCritical) then
-            print(Utils.RGBTextString(255, 0, 0, this.name, "-> Critical ->", ...))
+            print(TreeCore.RGBTextString(255, 0, 0, this.name, "-> Critical ->", ...))
         end
     end
 
     return this
+end
+
+function TreeCore.RGBTextString(red, green, blue, ...)
+    local ret = "|c" .. Utils.RGBToHex(red, green, blue)
+    for _, v in ipairs { ... } do
+        ret = ret .. tostring(v) .. " "
+    end
+    ret = ret .. "|r"
+    return ret
 end
 
 TreeCore.logger = TreeCore.CreateLogger("Generic")

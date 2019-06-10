@@ -2,12 +2,12 @@ require("TreeCore")
 require("Param")
 require("utils.ArrayList")
 
-AICreep = { }
+Creep = { }
 
-function AICreep.Create()
+function Creep.Create()
     local this = ArrayList.Create()
-    this.type = "AICreep"
-    local logger = TreeCore.CreateLogger("AICreep.lua")
+    this.type = "Creep"
+    local logger = TreeCore.CreateLogger("Creep.lua")
 
     local campRadius = 832
     local neutralPlayer = Player(GetPlayerNeutralAggressive())
@@ -56,13 +56,13 @@ function AICreep.Create()
         logger.Verbose("End RegenerateCreepCamps")
     end
 
-    logger.Verbose("Finish Building AICreep")
+    logger.Verbose("Finish Building Creep")
     return this
 end
 
-function AICreep.ResolveParam(param)
+function Creep.ResolveParam(param)
     if (true == false) then
-        return AICreep.Create()
+        return Creep.Create()
     end
-    return Param.Resolve(param, "AICreep")
+    return Param.Resolve(param, "Creep")
 end

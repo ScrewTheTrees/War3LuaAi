@@ -1,7 +1,7 @@
 require("TreeCore")
 require("Param")
 require("utils.ArrayList")
-require("AIBuildings")
+require("Buildings")
 require("Towns.TownAllocator")
 require("Workers.WorkerGroups")
 
@@ -18,7 +18,7 @@ function AIConstructor.Create(workerGroups, buildings, townAllocator)
     logger.Verbose("Started Building AIConstructor")
 
     this.workerGroups = WorkerGroups.ResolveParam(workerGroups)
-    this.buildings = AIBuildings.ResolveParam(buildings)
+    this.buildings = Buildings.ResolveParam(buildings)
     this.townAllocator = TownAllocator.ResolveParam(townAllocator)
 
     --CODE
