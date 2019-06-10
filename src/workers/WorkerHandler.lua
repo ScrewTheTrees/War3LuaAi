@@ -1,15 +1,15 @@
 require("TreeCore")
 require("Param")
-require("Workers.Worker")
+require("workers.Worker")
 require("utils.Utils")
-require("Workers.WorkerAllocator")
-require("Towns.TownAllocator")
-require("Workers.WorkerGroups")
+require("workers.WorkerAllocator")
+require("towns.TownAllocator")
+require("workers.WorkerGroups")
 require("Buildings")
 require("utils.ArrayList")
 require("Ids")
-require("Workers.WorkerTypeConfig")
-require("AIConstructor")
+require("workers.WorkerTypeConfig")
+require("construction.Constructor")
 
 WorkerHandler = { }
 
@@ -26,7 +26,7 @@ WorkerHandler.Create = function(aiPlayer, workerTypeConfig)
     this.workerGroups = WorkerGroups.Create(workerTypeConfig)
 
     this.buildings = Buildings.Create(aiPlayer, this.townAllocator)
-    this.constructor = AIConstructor.Create(this.workerGroups, this.buildings, this.townAllocator)
+    this.constructor = Constructor.Create(this.workerGroups, this.buildings, this.townAllocator)
 
     local function PerformWorkerOrder(worker, orderType, townIndex, hardReset)
         hardReset = hardReset or false
@@ -62,7 +62,7 @@ WorkerHandler.Create = function(aiPlayer, workerTypeConfig)
                     PerformWorkerOrder(worker, Ids.orderTypes.ORDER_WOOD, group.townIndex, hardReset)
                 end
                 if (group.orderType == Ids.orderTypes.ORDER_BUILD and not (worker.order == Ids.orderTypes.ORDER_BUILD)) then
-                    PerformWorkerOrder(worker, this.workerTypeConfig.buildIdleOrder, group.townIndex, false)
+                    PerformWorkerOrder(worker, this.workerTypeConfig.buildIdleOrder, group.townIndex, hardReset)
                 end
             end
         end

@@ -1,9 +1,9 @@
 require("TreeCore")
 require("Param")
 require("Creeps")
-require("Workers.WorkerHandler")
+require("workers.WorkerHandler")
 require("AIAbstractRace")
-require("Workers.WorkerTypeConfig")
+require("workers.WorkerTypeConfig")
 
 AIRaceOrc = { }
 

@@ -1,5 +1,6 @@
 require("TreeCore")
 require("Param")
+require("towns.Town")
 require("utils.Utils")
 require("utils.ArrayList")
 require("Ids")
@@ -12,11 +13,6 @@ function TownAllocator.Create(aiPlayer)
     local logger = TreeCore.CreateLogger("TownAllocator.lua")
     logger.Verbose("Started Building TownAllocator")
 
-    --CODE
-    function this.Push(location, hall, mine)
-        local w = { location = location, hall = hall, mine = mine }
-        this[#this + 1] = w
-    end
     function this.GetClosestTownId(location)
         local closestTown = 1
         local distance = math.huge
@@ -36,7 +32,7 @@ function TownAllocator.Create(aiPlayer)
             local townLoc = GetUnitLoc(building)
             if (this.GetClosestTownId(townLoc) >= 2048) then
                 local mine = Utils.GetUnitsAround(townLoc, Ids.goldmineIds)
-                this.Push(townLoc, building, mine[1])
+                this.Push(Town.Create(townLoc, building, mine[1]))
             else
                 local town = this.Get(this.GetClosestTownId(townLoc))
                 town.hall = this
@@ -44,11 +40,9 @@ function TownAllocator.Create(aiPlayer)
         end
     end
 
-
-
     local mines = Utils.GetStartUnits(aiPlayer, Ids.goldmineIds)
     local halls = Utils.GetStartUnits(aiPlayer, Ids.hallIds)
-    this.Push(GetUnitLoc(halls[1]), halls[1], mines[1])
+    this.Push(Town.Create(GetUnitLoc(halls[1]), halls[1], mines[1]))
 
     logger.Verbose("Finish Building TownAllocator")
     return this

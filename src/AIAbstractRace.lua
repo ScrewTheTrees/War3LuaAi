@@ -1,5 +1,6 @@
 require("TreeCore")
 require("Param")
+require("Creeps")
 
 AIAbstractRace = { }
 

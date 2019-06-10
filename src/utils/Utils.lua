@@ -82,14 +82,19 @@ function Utils.GetClosestTreeToLocationInRange(location, range)
     return target
 end
 
-function Utils.CreateJson(input)
+function Utils.CreateJson(input, lastDepth)
     local json = ""
+    local depth = lastDepth - 1
     if (type(input) == "table") then
-        json = json .. "{"
-        for i, e in pairs(input) do
-            json = json .. i .. ":" .. Utils.CreateJson(e) .. ","
+        if (depth >= 0) then
+            json = json .. "{"
+            for i, e in pairs(input) do
+                json = json .. i .. ":" .. Utils.CreateJson(e, depth) .. ", "
+            end
+            json = json .. "}"
+        else
+            json = json .. "{...}"
         end
-        json = json .. "}"
     elseif type(input) == "function" then
         json = json .. "function"
     else
@@ -101,7 +106,7 @@ end
 function Utils.GetStartUnits(aiPlayer, ...)
     local loc = GetStartLocationLoc(GetPlayerStartLocation(aiPlayer))
     local arr = {}
-    for i, e in pairs(...) do
+    for _, e in pairs(...) do
         arr = Utils.TableConcat(arr, Utils.GetUnitsOfTypeAroundLocationInRange(e, loc, 2048))
     end
     RemoveLocation(loc)
@@ -110,7 +115,7 @@ end
 
 function Utils.GetUnitsAround(location, ...)
     local arr = {}
-    for i, e in pairs(...) do
+    for _, e in pairs(...) do
         arr = Utils.TableConcat(arr, Utils.GetUnitsOfTypeAroundLocationInRange(e, location, 2048))
     end
     return arr

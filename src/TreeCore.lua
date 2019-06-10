@@ -1,8 +1,8 @@
 TreeCore = { }
 
-TreeCore.version = 1
+TreeCore.version = 2
 
-TreeCore.printVerbose = false
+TreeCore.printVerbose = true
 TreeCore.printDebug = true
 TreeCore.printWarning = true
 TreeCore.printCritical = true
@@ -45,6 +45,7 @@ function TreeCore.RGBTextString(red, green, blue, ...)
     return ret
 end
 
+-- Version 2
 TreeCore.logger = TreeCore.CreateLogger("Generic")
 function TreeCore.VerboseGeneric(...)
     TreeCore.logger.Verbose(...)

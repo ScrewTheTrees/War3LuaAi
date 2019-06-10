@@ -1,7 +1,7 @@
 require("TreeCore")
 require("Param")
 require("utils.ArrayList")
-require("Towns.TownAllocator")
+require("towns.TownAllocator")
 
 Buildings = { }
 

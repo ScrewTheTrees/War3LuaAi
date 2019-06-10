@@ -3,7 +3,7 @@ require("Param")
 require("utils.Utils")
 require("utils.MouseLoc")
 require("utils.Targeting")
-require("Towns.TownBuildingLocation")
+require("towns.TownBuildingLocation")
 
 ContextBoard = { }
 ContextBoard.types = {
@@ -42,17 +42,17 @@ function ContextBoard.Create(aiPlayer, aiRace)
     end
 
     function this.AddWorkerData()
-        this.data.Push({ name = "", value = Utils.CreateJson(aiRace.workerTypeConfig) })
+        this.data.Push({ name = "", value = Utils.CreateJson(aiRace.workerTypeConfig, 3) })
         this.data.Push({ name = "workerGroups", value = #aiRace.moduleWorker.workerGroups })
         for i, e in ipairs(aiRace.moduleWorker.workerGroups) do
             this.data.Push({ name = "    " .. i, value = e.orderType .. " -> " .. #e.workerIndexes .. "/" .. e.amountOfWorkers .. " workers in town " .. e.townIndex })
             for j, u in ipairs(e.workerIndexes) do
-                this.data.Push({ name = "        " .. j, value = Utils.CreateJson(u) })
+                this.data.Push({ name = "        " .. j, value = Utils.CreateJson(u, 3) })
             end
         end
         this.data.Push({ name = "    " .. 0, value = Ids.orderTypes.ORDER_IDLE })
         for j, u in ipairs(aiRace.moduleWorker.workerGroups.idleIndexes) do
-            this.data.Push({ name = "        " .. j, value = Utils.CreateJson(u) })
+            this.data.Push({ name = "        " .. j, value = Utils.CreateJson(u, 3) })
         end
     end
 

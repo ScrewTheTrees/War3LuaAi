@@ -18,22 +18,8 @@ function AICore.Create()
 
     this.ai = ArrayList.Create()
 
-    for i = 0, GetPlayerNeutralAggressive() - 1 do
-        local p = Player(i)
-        if (GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING) then
-            local race = GetPlayerRace(p)
-            if race == RACE_HUMAN then
-                this.ai.Push(AIRaceHuman.Create(Player(i)))
-            elseif race == RACE_ORC then
-                this.ai.Push(AIRaceOrc.Create(Player(i)))
-            elseif race == RACE_UNDEAD then
-                this.ai.Push(AIRaceUndead.Create(Player(i)))
-            elseif race == RACE_NIGHTELF then
-                this.ai.Push(AIRaceNightElf.Create(Player(i)))
-            end
-        end
-    end
 
+    this.ai.Push(AIRaceHuman.Create(Player(0)))
     local board = ContextBoard.Create(Player(0), this.ai.Get(1))
 
     this.timer = 0
