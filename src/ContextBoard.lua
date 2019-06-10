@@ -3,7 +3,7 @@ require("Param")
 require("utils.Utils")
 require("utils.MouseLoc")
 require("utils.Targeting")
-require("aiTownHandler.AITownBuildingLocation")
+require("TownHandler.AITownBuildingLocation")
 
 ContextBoard = { }
 ContextBoard.types = {

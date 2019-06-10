@@ -1,28 +1,29 @@
 require("TreeCore")
 require("Param")
+require("Workers.Worker")
 require("utils.Utils")
-require("aiWorkers.AIWorkerAllocator")
-require("aiTownHandler.AITownAllocator")
-require("aiWorkers.AIWorkerGroups")
+require("Workers.WorkerAllocator")
+require("TownHandler.AITownAllocator")
+require("Workers.WorkerGroups")
 require("AIBuildings")
 require("utils.ArrayList")
 require("Ids")
-require("aiWorkers.WorkerTypeConfig")
+require("Workers.WorkerTypeConfig")
 require("AIConstructor")
 
-AIWorker = { }
+WorkerHandler = { }
 
-AIWorker.Create = function(aiPlayer, workerTypeConfig)
+WorkerHandler.Create = function(aiPlayer, workerTypeConfig)
     local this = { }
     this.type = "AIWorker"
-    local logger = TreeCore.CreateLogger("AIWorker.lua")
+    local logger = TreeCore.CreateLogger("WorkerHandler.lua")
     logger.Verbose("Started Building AIWorker")
 
     this.workerTypeConfig = WorkerTypeConfig.ResolveParam(workerTypeConfig)
 
     this.townAllocator = AITownAllocator.Create(aiPlayer)
-    this.workerAllocator = AIWorkerAllocator.Create(aiPlayer)
-    this.workerGroups = AIWorkerGroups.Create(workerTypeConfig)
+    this.workerAllocator = WorkerAllocator.Create(aiPlayer)
+    this.workerGroups = WorkerGroups.Create(workerTypeConfig)
 
     this.buildings = AIBuildings.Create(aiPlayer, this.townAllocator)
     this.constructor = AIConstructor.Create(this.workerGroups, this.buildings, this.townAllocator)
@@ -98,7 +99,7 @@ AIWorker.Create = function(aiPlayer, workerTypeConfig)
         return (Ids.IsPeonId(Utils.CCInteger(GetUnitTypeId(GetTrainedUnit()))))
     end))
     this.workerAdder.action = TriggerAddAction(this.workerAdder.trigger, function()
-        local id = this.workerAllocator.Push(GetTrainedUnit())
+        local id = this.workerAllocator.Push(Worker.Create(GetTrainedUnit()))
         local worker = this.workerAllocator.Get(id)
         this.workerGroups.idleIndexes.Push(worker)
         this.UpdateOrdersForWorkers()
@@ -122,9 +123,9 @@ AIWorker.Create = function(aiPlayer, workerTypeConfig)
 
     return this
 end
-function AIWorker.ResolveParam(param)
+function WorkerHandler.ResolveParam(param)
     if (true == false) then
-        return AIWorker.Create()
+        return WorkerHandler.Create()
     end
-    return Param.Resolve(param, "AIWorker")
+    return Param.Resolve(param, "WorkerHandler")
 end

@@ -1,7 +1,7 @@
 require("TreeCore")
 require("Param")
 require("utils.ArrayList")
-require("aiTownHandler.AITownAllocator")
+require("TownHandler.AITownAllocator")
 
 AIBuildings = { }
 

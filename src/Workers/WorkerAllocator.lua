@@ -3,21 +3,17 @@ require("Param")
 require("utils.Utils")
 require("utils.ArrayList")
 require("Ids")
+require("Workers.Worker")
 
-AIWorkerAllocator = { }
+WorkerAllocator = { }
 
-function AIWorkerAllocator.Create(aiPlayer)
+function WorkerAllocator.Create(aiPlayer)
     local this = ArrayList.Create()
     this.type = "AIWorkerAllocator"
-    local logger = TreeCore.CreateLogger("AIWorkerAllocator.lua")
+    local logger = TreeCore.CreateLogger("WorkerAllocator.lua")
 
     logger.Verbose("Started Building AIWorkerAllocator")
 
-    function this.Push (unit)
-        local w = { unit = unit, order = Ids.orderTypes.ORDER_IDLE, unitType = Utils.CCInteger(GetUnitTypeId(unit)) }
-        this[#this + 1] = w
-        return #this
-    end
     function this.GetByUnit (unit)
         for i = 1, #this do
             if (this[i].unit == unit) then
@@ -37,16 +33,16 @@ function AIWorkerAllocator.Create(aiPlayer)
 
     local peons = Utils.GetStartUnits(aiPlayer, Ids.peonIds)
     for _, worker in ipairs(peons) do
-        this.Push(worker)
+        this.Push(Worker.Create(worker))
     end
 
     logger.Verbose("Finish Building AIWorkerAllocator")
     return this
 end
 
-function AIWorkerAllocator.ResolveParam(param)
+function WorkerAllocator.ResolveParam(param)
     if (true == false) then
-        return AIWorkerAllocator.Create()
+        return WorkerAllocator.Create()
     end
-    return Param.Resolve(param, "AIWorkerAllocator")
+    return Param.Resolve(param, "WorkerAllocator")
 end

@@ -1,9 +1,9 @@
 require("TreeCore")
 require("Param")
 require("AICreep")
-require("aiWorkers.AIWorker")
+require("Workers.WorkerHandler")
 require("AIAbstractRace")
-require("aiWorkers.WorkerTypeConfig")
+require("Workers.WorkerTypeConfig")
 
 AIRaceUndead = { }
 
@@ -14,7 +14,7 @@ function AIRaceUndead.Create(aiPlayer)
     logger.Verbose("Make AIRaceUndead")
 
     this.workerTypeConfig = WorkerTypeConfig.Create("uaco", "ugho", "uaco", Ids.orderTypes.ORDER_GOLDMINE)
-    this.moduleWorker = AIWorker.Create(aiPlayer, this.workerTypeConfig)
+    this.moduleWorker = WorkerHandler.Create(aiPlayer, this.workerTypeConfig)
 
     this.moduleWorker.workerGroups.Set(1, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
     this.moduleWorker.workerGroups.Set(1, 1, Ids.orderTypes.ORDER_BUILD, 1)
