@@ -3,7 +3,7 @@ require("Param")
 require("workers.WorkerDto")
 require("utils.Utils")
 require("workers.WorkerAllocatorList")
-require("towns.TownAllocator")
+require("towns.TownAllocatorList")
 require("workers.WorkerGroupsList")
 require("buildings.BuildingAllocatorList")
 require("ArrayList")
@@ -21,7 +21,7 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
 
     this.workerTypeConfig = WorkerTypeConfig.ResolveParam(workerTypeConfig)
 
-    this.townAllocator = TownAllocator.Create(aiPlayer)
+    this.townAllocator = TownAllocatorList.Create(aiPlayer)
     this.workerAllocator = WorkerAllocatorList.Create(aiPlayer)
     this.workerGroups = WorkerGroupsList.Create(workerTypeConfig)
 

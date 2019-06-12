@@ -1,7 +1,7 @@
 require("TreeCore")
 require("Param")
 require("ArrayList")
-require("towns.TownAllocator")
+require("towns.TownAllocatorList")
 
 BuildingAllocatorList = { }
 
@@ -18,7 +18,7 @@ function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
     this.type = "BuildingAllocatorList"
     local logger = TreeCore.CreateLogger("BuildingAllocatorList.lua")
     logger.Verbose("Started Building BuildingAllocatorList")
-    this.aiTownAllocator = TownAllocator.ResolveParam(aiTownAllocator)
+    this.aiTownAllocator = TownAllocatorList.ResolveParam(aiTownAllocator)
 
     --TODO: Make DTO
     function this.Push(unit, status, townIndex)

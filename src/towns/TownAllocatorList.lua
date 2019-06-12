@@ -5,13 +5,13 @@ require("utils.Utils")
 require("ArrayList")
 require("Ids")
 
-TownAllocator = { }
+TownAllocatorList = { }
 
-function TownAllocator.Create(aiPlayer)
+function TownAllocatorList.Create(aiPlayer)
     local this = ArrayList.Create()
-    this.type = "TownAllocator"
-    local logger = TreeCore.CreateLogger("TownAllocator.lua")
-    logger.Verbose("Started Building TownAllocator")
+    this.type = "TownAllocatorList"
+    local logger = TreeCore.CreateLogger("TownAllocatorList.lua")
+    logger.Verbose("Started Building TownAllocatorList")
 
     function this.GetClosestTownId(location)
         local closestTown = 1
@@ -44,13 +44,13 @@ function TownAllocator.Create(aiPlayer)
     local halls = Utils.GetStartUnits(aiPlayer, Ids.hallIds)
     this.Push(TownDto.Create(GetUnitLoc(halls[1]), halls[1], mines[1]))
 
-    logger.Verbose("Finish Building TownAllocator")
+    logger.Verbose("Finish Building TownAllocatorList")
     return this
 end
 
-function TownAllocator.ResolveParam(param)
+function TownAllocatorList.ResolveParam(param)
     if (true == false) then
-        return TownAllocator.Create()
+        return TownAllocatorList.Create()
     end
-    return Param.Resolve(param, "TownAllocator")
+    return Param.Resolve(param, "TownAllocatorList")
 end

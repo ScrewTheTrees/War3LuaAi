@@ -2,7 +2,7 @@ require("TreeCore")
 require("Param")
 require("ArrayList")
 require("buildings.BuildingAllocatorList")
-require("towns.TownAllocator")
+require("towns.TownAllocatorList")
 require("workers.WorkerGroupsList")
 
 ConstructorModule = { }
@@ -19,7 +19,7 @@ function ConstructorModule.Create(workerGroups, buildings, townAllocator)
 
     this.workerGroups = WorkerGroupsList.ResolveParam(workerGroups)
     this.buildings = BuildingAllocatorList.ResolveParam(buildings)
-    this.townAllocator = TownAllocator.ResolveParam(townAllocator)
+    this.townAllocator = TownAllocatorList.ResolveParam(townAllocator)
 
     --CODE
 
