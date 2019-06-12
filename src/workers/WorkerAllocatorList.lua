@@ -5,14 +5,14 @@ require("ArrayList")
 require("Ids")
 require("workers.WorkerDto")
 
-WorkerAllocator = { }
+WorkerAllocatorList = { }
 
-function WorkerAllocator.Create(aiPlayer)
+function WorkerAllocatorList.Create(aiPlayer)
     local this = ArrayList.Create()
-    this.type = "WorkerAllocator"
-    local logger = TreeCore.CreateLogger("WorkerAllocator.lua")
+    this.type = "WorkerAllocatorList"
+    local logger = TreeCore.CreateLogger("WorkerAllocatorList.lua")
 
-    logger.Verbose("Started Building WorkerAllocator")
+    logger.Verbose("Started Building WorkerAllocatorList")
 
     function this.GetByUnit (unit)
         for i = 1, #this do
@@ -36,13 +36,13 @@ function WorkerAllocator.Create(aiPlayer)
         this.Push(WorkerDto.Create(worker))
     end
 
-    logger.Verbose("Finish Building WorkerAllocator")
+    logger.Verbose("Finish Building WorkerAllocatorList")
     return this
 end
 
-function WorkerAllocator.ResolveParam(param)
+function WorkerAllocatorList.ResolveParam(param)
     if (true == false) then
-        return WorkerAllocator.Create()
+        return WorkerAllocatorList.Create()
     end
-    return Param.Resolve(param, "WorkerAllocator")
+    return Param.Resolve(param, "WorkerAllocatorList")
 end
