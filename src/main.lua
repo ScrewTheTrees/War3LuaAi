@@ -1,4 +1,4 @@
-require("AICore")
+require("AICoreModule")
 require("Param")
 
 local gg_trg_Start
@@ -8,7 +8,7 @@ function MapStart()
 
     local function execute()
         logger.Debug("Start")
-        AICore.Create()
+        AICoreModule.Create()
     end
 
     xpcall(execute, logger.Critical)

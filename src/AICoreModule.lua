@@ -8,14 +8,14 @@ require("ContextBoardModule")
 require("ArrayList")
 require("DigestModule")
 
-AICore = { }
+AICoreModule = { }
 
-function AICore.Create()
+function AICoreModule.Create()
     local this = { }
-    this.type = "AICore"
-    local logger = TreeCore.CreateLogger("AICore.lua")
+    this.type = "AICoreModule"
+    local logger = TreeCore.CreateLogger("AICoreModule.lua")
 
-    logger.Verbose("Started Building AICore")
+    logger.Verbose("Started Building AICoreModule")
 
     this.ai = ArrayList.Create()
 
@@ -25,13 +25,13 @@ function AICore.Create()
     this.mainDigest = DigestModule.Create(0.1)
     this.mainDigest.AddToDigest("board", board.Update)
 
-    logger.Verbose("Finish Building AICore")
+    logger.Verbose("Finish Building AICoreModule")
     return this
 end
 
-function AICore.ResolveParam(param)
+function AICoreModule.ResolveParam(param)
     if (true == false) then
-        return AICore.Create()
+        return AICoreModule.Create()
     end
-    return Param.Resolve(param, "AICore")
+    return Param.Resolve(param, "AICoreModule")
 end
