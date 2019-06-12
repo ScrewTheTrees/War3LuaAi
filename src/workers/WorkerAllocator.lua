@@ -1,7 +1,7 @@
 require("TreeCore")
 require("Param")
 require("utils.Utils")
-require("utils.ArrayList")
+require("ArrayList")
 require("Ids")
 require("workers.Worker")
 

@@ -5,7 +5,8 @@ require("AIRaceOrc")
 require("AIRaceUndead")
 require("AIRaceNightElf")
 require("ContextBoard")
-require("utils.ArrayList")
+require("ArrayList")
+require("DigestModule")
 
 AICore = { }
 
@@ -18,19 +19,11 @@ function AICore.Create()
 
     this.ai = ArrayList.Create()
 
-
     this.ai.Push(AIRaceHuman.Create(Player(0)))
     local board = ContextBoard.Create(Player(0), this.ai.Get(1))
 
-    this.timer = 0
-
-    this.workerRunner = { trigger = CreateTrigger(), enabled = true }
-    function this.workerThread()
-        xpcall(board.Update, logger.Critical)
-    end
-
-    TriggerRegisterTimerEvent(this.workerRunner.trigger, 0.1, true)
-    TriggerAddAction(this.workerRunner.trigger, this.workerThread)
+    this.mainDigest = DigestModule.Create(0.1)
+    this.mainDigest.AddToDigest("board", board.Update)
 
     logger.Verbose("Finish Building AICore")
     return this

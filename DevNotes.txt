@@ -1,0 +1,27 @@
+constant native GetPlayerRace           takes player whichPlayer returns race
+constant native GetPlayerId             takes player whichPlayer returns integer
+constant native GetPlayerUnitCount      takes player whichPlayer, boolean includeIncomplete returns integer
+constant native GetPlayerTypedUnitCount takes player whichPlayer, string unitName, boolean includeIncomplete, boolean includeUpgrades returns integer
+constant native GetPlayerStructureCount takes player whichPlayer, boolean includeIncomplete returns integer
+constant native GetPlayerState          takes player whichPlayer, playerstate whichPlayerState returns integer
+constant native GetPlayerScore          takes player whichPlayer, playerscore whichPlayerScore returns integer
+constant native GetPlayerAlliance       takes player sourcePlayer, player otherPlayer, alliancetype whichAllianceSetting returns boolean
+
+
+
+
+    for i = 0, GetPlayerNeutralAggressive() - 1 do
+        local p = Player(i)
+        if (GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING) then
+            local race = GetPlayerRace(p)
+            if race == RACE_HUMAN then
+                this.ai.Push(AIRaceHuman.Create(Player(i)))
+            elseif race == RACE_ORC then
+                this.ai.Push(AIRaceOrc.Create(Player(i)))
+            elseif race == RACE_UNDEAD then
+                this.ai.Push(AIRaceUndead.Create(Player(i)))
+            elseif race == RACE_NIGHTELF then
+                this.ai.Push(AIRaceNightElf.Create(Player(i)))
+            end
+        end
+    end

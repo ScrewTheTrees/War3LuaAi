@@ -2,7 +2,7 @@ require("TreeCore")
 require("Param")
 require("towns.Town")
 require("utils.Utils")
-require("utils.ArrayList")
+require("ArrayList")
 require("Ids")
 
 TownAllocator = { }
