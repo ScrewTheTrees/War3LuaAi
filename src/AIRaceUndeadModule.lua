@@ -1,17 +1,17 @@
 require("TreeCore")
 require("Param")
-require("Creeps")
+require("CreepsModule")
 require("workers.WorkerHandler")
-require("AIAbstractRace")
-require("workers.WorkerTypeConfig")
+require("AIAbstractRaceModule")
+require("workers.WorkerTypeConfigDto")
 
-AIRaceUndead = { }
+AIRaceUndeadModule = { }
 
-function AIRaceUndead.Create(aiPlayer)
-    local this = AIAbstractRace.Create(aiPlayer)
-    this.type = "AIRaceUndead"
-    local logger = TreeCore.CreateLogger("AIRaceUndead.lua")
-    logger.Verbose("Make AIRaceUndead")
+function AIRaceUndeadModule.Create(aiPlayer)
+    local this = AIAbstractRaceModule.Create(aiPlayer)
+    this.type = "AIRaceUndeadModule"
+    local logger = TreeCore.CreateLogger("AIRaceUndeadModule.lua")
+    logger.Verbose("Make AIRaceUndeadModule")
 
     this.workerTypeConfig = WorkerTypeConfig.Create("uaco", "ugho", "uaco", Ids.orderTypes.ORDER_GOLDMINE)
     this.moduleWorker = WorkerHandler.Create(aiPlayer, this.workerTypeConfig)
@@ -23,14 +23,14 @@ function AIRaceUndead.Create(aiPlayer)
 
     this.moduleWorker.UpdateOrdersForWorkers()
 
-    logger.Verbose("Finish AIRaceUndead")
+    logger.Verbose("Finish AIRaceUndeadModule")
 
     return this
 end
 
-function AIRaceUndead.ResolveParam(param)
+function AIRaceUndeadModule.ResolveParam(param)
     if (true == false) then
-        return AIRaceUndead.Create()
+        return AIRaceUndeadModule.Create()
     end
-    return Param.Resolve(param, "AIRaceUndead")
+    return Param.Resolve(param, "AIRaceUndeadModule")
 end

@@ -1,18 +1,18 @@
 require("TreeCore")
 require("Param")
-require("Creeps")
+require("CreepsModule")
 require("workers.WorkerHandler")
-require("AIAbstractRace")
-require("workers.WorkerTypeConfig")
+require("AIAbstractRaceModule")
+require("workers.WorkerTypeConfigDto")
 
 
-AIRaceNightElf = { }
+AIRaceNightElfModule = { }
 
-function AIRaceNightElf.Create(aiPlayer)
-    local this = AIAbstractRace.Create(aiPlayer)
-    this.type = "AIRaceNightElf"
-    local logger = TreeCore.CreateLogger("AIRaceNightElf.lua")
-    logger.Verbose("Make AIRaceNightElf")
+function AIRaceNightElfModule.Create(aiPlayer)
+    local this = AIAbstractRaceModule.Create(aiPlayer)
+    this.type = "AIRaceNightElfModule"
+    local logger = TreeCore.CreateLogger("AIRaceNightElfModule.lua")
+    logger.Verbose("Make AIRaceNightElfModule")
 
     this.workerTypeConfig = WorkerTypeConfig.Create("ewsp", "ewsp", "ewsp", Ids.orderTypes.ORDER_WOOD)
     this.moduleWorker = WorkerHandler.Create(aiPlayer, this.workerTypeConfig)
@@ -23,14 +23,14 @@ function AIRaceNightElf.Create(aiPlayer)
 
     this.moduleWorker.UpdateOrdersForWorkers()
 
-    logger.Verbose("Finish AIRaceNightElf")
+    logger.Verbose("Finish AIRaceNightElfModule")
 
     return this
 end
 
-function AIRaceNightElf.ResolveParam(param)
+function AIRaceNightElfModule.ResolveParam(param)
     if (true == false) then
-        return AIRaceNightElf.Create()
+        return AIRaceNightElfModule.Create()
     end
-    return Param.Resolve(param, "AIRaceNightElf")
+    return Param.Resolve(param, "AIRaceNightElfModule")
 end

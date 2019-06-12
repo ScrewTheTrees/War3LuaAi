@@ -3,7 +3,7 @@ require("Param")
 require("utils.Utils")
 require("ArrayList")
 require("Ids")
-require("workers.Worker")
+require("workers.WorkerDto")
 
 WorkerAllocator = { }
 
@@ -33,7 +33,7 @@ function WorkerAllocator.Create(aiPlayer)
 
     local peons = Utils.GetStartUnits(aiPlayer, Ids.peonIds)
     for _, worker in ipairs(peons) do
-        this.Push(Worker.Create(worker))
+        this.Push(WorkerDto.Create(worker))
     end
 
     logger.Verbose("Finish Building WorkerAllocator")

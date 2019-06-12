@@ -1,20 +1,20 @@
 require("TreeCore")
 require("Param")
 require("utils.Utils")
-require("utils.Targeting")
+require("utils.TargetingModule")
 
-TownBuildingLocation = { }
-TownBuildingLocation.sizes = {
+TownBuildingLocationModule = { }
+TownBuildingLocationModule.sizes = {
     TINY = 32,
     SMALL = 96,
     MEDIUM = 128,
 }
 
-function TownBuildingLocation.Create()
+function TownBuildingLocationModule.Create()
     local this = { }
     this.type = "TownBuildingLocation"
-    local logger = TreeCore.CreateLogger("TownBuildingLocation.lua")
-    local targeting = Targeting.Create()
+    local logger = TreeCore.CreateLogger("TownBuildingLocationModule.lua")
+    local targeting = TargetingModule.Create()
 
     logger.Verbose("Started Building TownBuildingLocation")
 
@@ -66,9 +66,9 @@ function TownBuildingLocation.Create()
     return this
 end
 
-function TownBuildingLocation.ResolveParam(param)
+function TownBuildingLocationModule.ResolveParam(param)
     if (true == false) then
-        return TownBuildingLocation.Create()
+        return TownBuildingLocationModule.Create()
     end
     return Param.Resolve(param, "TownBuildingLocation")
 end

@@ -1,13 +1,13 @@
 require("TreeCore")
 require("Param")
-require("Creeps")
+require("CreepsModule")
 
-AIAbstractRace = { }
+AIAbstractRaceModule = { }
 
-function AIAbstractRace.Create(aiPlayer)
+function AIAbstractRaceModule.Create(aiPlayer)
     local this = { }
-    this.type = "AIAbstractRace"
-    local logger = TreeCore.CreateLogger("AIAbstractRace.lua")
+    this.type = "AIAbstractRaceModule"
+    local logger = TreeCore.CreateLogger("AIAbstractRaceModule.lua")
 
     logger.Verbose("Started Building AIRaceInterface")
 
@@ -15,7 +15,7 @@ function AIAbstractRace.Create(aiPlayer)
         logger.Critical("Ai player nil, functionality will never work.")
         return nil
     end
-    this.moduleCreep = Creeps.Create(aiPlayer)
+    this.moduleCreep = CreepsModule.Create(aiPlayer)
     this.moduleWorker = nil
 
     this.moduleCreep.RegenerateCreepCamps()
@@ -25,9 +25,9 @@ function AIAbstractRace.Create(aiPlayer)
     return this
 end
 
-function AIAbstractRace.ResolveParam(param)
+function AIAbstractRaceModule.ResolveParam(param)
     if (true == false) then
-        return AIAbstractRace.Create()
+        return AIAbstractRaceModule.Create()
     end
-    return Param.Resolve(param, "AIAbstractRace")
+    return Param.Resolve(param, "AIAbstractRaceModule")
 end

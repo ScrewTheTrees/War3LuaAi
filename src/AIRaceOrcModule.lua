@@ -1,17 +1,17 @@
 require("TreeCore")
 require("Param")
-require("Creeps")
+require("CreepsModule")
 require("workers.WorkerHandler")
-require("AIAbstractRace")
-require("workers.WorkerTypeConfig")
+require("AIAbstractRaceModule")
+require("workers.WorkerTypeConfigDto")
 
-AIRaceOrc = { }
+AIRaceOrcModule = { }
 
-function AIRaceOrc.Create(aiPlayer)
-    local this = AIAbstractRace.Create(aiPlayer)
-    this.type = "AIRaceOrc"
-    local logger = TreeCore.CreateLogger("AIRaceOrc.lua")
-    logger.Verbose("Make AIRaceOrc")
+function AIRaceOrcModule.Create(aiPlayer)
+    local this = AIAbstractRaceModule.Create(aiPlayer)
+    this.type = "AIRaceOrcModule"
+    local logger = TreeCore.CreateLogger("AIRaceOrcModule.lua")
+    logger.Verbose("Make AIRaceOrcModule")
 
     this.workerTypeConfig = WorkerTypeConfig.Create("opeo", "opeo", "opeo", Ids.orderTypes.ORDER_WOOD)
     this.moduleWorker = WorkerHandler.Create(aiPlayer, this.workerTypeConfig)
@@ -22,14 +22,14 @@ function AIRaceOrc.Create(aiPlayer)
 
     this.moduleWorker.UpdateOrdersForWorkers()
 
-    logger.Verbose("Finish AIRaceOrc")
+    logger.Verbose("Finish AIRaceOrcModule")
 
     return this
 end
 
-function AIRaceOrc.ResolveParam(param)
+function AIRaceOrcModule.ResolveParam(param)
     if (true == false) then
-        return AIRaceOrc.Create()
+        return AIRaceOrcModule.Create()
     end
-    return Param.Resolve(param, "AIRaceOrc")
+    return Param.Resolve(param, "AIRaceOrcModule")
 end

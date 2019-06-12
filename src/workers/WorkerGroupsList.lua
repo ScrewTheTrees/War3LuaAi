@@ -2,14 +2,14 @@ require("TreeCore")
 require("Param")
 require("ArrayList")
 
-WorkerGroups = { }
+WorkerGroupsList = { }
 
-function WorkerGroups.Create(workerTypeConfig)
+function WorkerGroupsList.Create(workerTypeConfig)
     local this = ArrayList.Create()
-    this.type = "WorkerGroups"
-    local logger = TreeCore.CreateLogger("WorkerGroups.lua")
+    this.type = "WorkerGroupsList"
+    local logger = TreeCore.CreateLogger("WorkerGroupsList.lua")
 
-    logger.Verbose("Started Building WorkerGroups")
+    logger.Verbose("Started Building WorkerGroupsList")
 
     this.workerTypeConfig = workerTypeConfig
 
@@ -32,7 +32,7 @@ function WorkerGroups.Create(workerTypeConfig)
     end
 
     function this.Push(value)
-        this.logger.Critical("Not allowed operation: ", "Push", "to workGroups in:", "WorkerGroups", tostring(value))
+        this.logger.Critical("Not allowed operation: ", "Push", "to workGroups in:", "WorkerGroupsList", tostring(value))
     end
     function this.PopulateIdleWorkers(index)
         local group = this[index]
@@ -58,13 +58,13 @@ function WorkerGroups.Create(workerTypeConfig)
     end
     --CODE
 
-    logger.Verbose("Finish Building WorkerGroups")
+    logger.Verbose("Finish Building WorkerGroupsList")
     return this
 end
 
-function WorkerGroups.ResolveParam(param)
+function WorkerGroupsList.ResolveParam(param)
     if (true == false) then
-        return WorkerGroups.Create()
+        return WorkerGroupsList.Create()
     end
-    return Param.Resolve(param, "WorkerGroups")
+    return Param.Resolve(param, "WorkerGroupsList")
 end

@@ -1,14 +1,14 @@
 require("TreeCore")
 require("Param")
 
-MouseLoc = { }
+MouseLocModule = { }
 
-function MouseLoc.Create(aiPlayer)
+function MouseLocModule.Create(aiPlayer)
     local this = { }
-    this.type = "MouseLoc"
-    local logger = TreeCore.CreateLogger("MouseLoc.lua")
+    this.type = "MouseLocModule"
+    local logger = TreeCore.CreateLogger("MouseLocModule.lua")
 
-    logger.Verbose("Started Building MouseLoc")
+    logger.Verbose("Started Building MouseLocModule")
     this.x = 0
     this.y = 0
 
@@ -23,13 +23,13 @@ function MouseLoc.Create(aiPlayer)
         this.y = BlzGetTriggerPlayerMouseY()
     end)
 
-    logger.Verbose("Finish Building MouseLoc")
+    logger.Verbose("Finish Building MouseLocModule")
     return this
 end
 
-function MouseLoc.ResolveParam(param)
+function MouseLocModule.ResolveParam(param)
     if (true == false) then
-        return MouseLoc.Create()
+        return MouseLocModule.Create()
     end
-    return Param.Resolve(param, "MouseLoc")
+    return Param.Resolve(param, "MouseLocModule")
 end

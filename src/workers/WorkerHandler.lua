@@ -1,15 +1,15 @@
 require("TreeCore")
 require("Param")
-require("workers.Worker")
+require("workers.WorkerDto")
 require("utils.Utils")
 require("workers.WorkerAllocator")
 require("towns.TownAllocator")
-require("workers.WorkerGroups")
-require("buildings.BuildingsAllocator")
+require("workers.WorkerGroupsList")
+require("buildings.BuildingAllocatorList")
 require("ArrayList")
 require("Ids")
-require("workers.WorkerTypeConfig")
-require("construction.Constructor")
+require("workers.WorkerTypeConfigDto")
+require("construction.ConstructorModule")
 
 WorkerHandler = { }
 
@@ -23,10 +23,10 @@ WorkerHandler.Create = function(aiPlayer, workerTypeConfig)
 
     this.townAllocator = TownAllocator.Create(aiPlayer)
     this.workerAllocator = WorkerAllocator.Create(aiPlayer)
-    this.workerGroups = WorkerGroups.Create(workerTypeConfig)
+    this.workerGroups = WorkerGroupsList.Create(workerTypeConfig)
 
-    this.buildings = BuildingsAllocator.Create(aiPlayer, this.townAllocator)
-    this.constructor = Constructor.Create(this.workerGroups, this.buildings, this.townAllocator)
+    this.buildings = BuildingAllocatorList.Create(aiPlayer, this.townAllocator)
+    this.constructor = ConstructorModule.Create(this.workerGroups, this.buildings, this.townAllocator)
 
     local function PerformWorkerOrder(worker, orderType, townIndex, hardReset)
         hardReset = hardReset or false
@@ -99,7 +99,7 @@ WorkerHandler.Create = function(aiPlayer, workerTypeConfig)
         return (Ids.IsPeonId(Utils.CCInteger(GetUnitTypeId(GetTrainedUnit()))))
     end))
     this.workerAdder.action = TriggerAddAction(this.workerAdder.trigger, function()
-        local id = this.workerAllocator.Push(Worker.Create(GetTrainedUnit()))
+        local id = this.workerAllocator.Push(WorkerDto.Create(GetTrainedUnit()))
         local worker = this.workerAllocator.Get(id)
         this.workerGroups.idleIndexes.Push(worker)
         this.UpdateOrdersForWorkers()

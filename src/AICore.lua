@@ -1,10 +1,10 @@
 require("TreeCore")
 require("Param")
-require("AIRaceHuman")
-require("AIRaceOrc")
-require("AIRaceUndead")
-require("AIRaceNightElf")
-require("ContextBoard")
+require("AIRaceHumanModule")
+require("AIRaceOrcModule")
+require("AIRaceUndeadModule")
+require("AIRaceNightElfModule")
+require("ContextBoardModule")
 require("ArrayList")
 require("DigestModule")
 
@@ -19,8 +19,8 @@ function AICore.Create()
 
     this.ai = ArrayList.Create()
 
-    this.ai.Push(AIRaceHuman.Create(Player(0)))
-    local board = ContextBoard.Create(Player(0), this.ai.Get(1))
+    this.ai.Push(AIRaceHumanModule.Create(Player(0)))
+    local board = ContextBoardModule.Create(Player(0), this.ai.Get(1))
 
     this.mainDigest = DigestModule.Create(0.1)
     this.mainDigest.AddToDigest("board", board.Update)

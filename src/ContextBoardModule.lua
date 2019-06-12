@@ -1,12 +1,12 @@
 require("TreeCore")
 require("Param")
 require("utils.Utils")
-require("utils.MouseLoc")
-require("utils.Targeting")
-require("towns.TownBuildingLocation")
+require("utils.MouseLocModule")
+require("utils.TargetingModule")
+require("towns.TownBuildingLocationModule")
 
-ContextBoard = { }
-ContextBoard.types = {
+ContextBoardModule = { }
+ContextBoardModule.types = {
     WORKER = "WORKER",
     BUILDINGS = "BUILDINGS",
     TARGETING = "TARGETING",
@@ -14,18 +14,18 @@ ContextBoard.types = {
     BUILDERWORKER = "BUILDERWORKER",
 }
 
-function ContextBoard.Create(aiPlayer, aiRace)
+function ContextBoardModule.Create(aiPlayer, aiRace)
     local this = { }
-    this.type = "ContextBoard"
+    this.type = "ContextBoardModule"
     --Constants
-    local logger = TreeCore.CreateLogger("ContextBoard.lua")
+    local logger = TreeCore.CreateLogger("ContextBoardModule.lua")
 
-    logger.Verbose("Started Building ContextBoard")
+    logger.Verbose("Started Building ContextBoardModule")
 
     this.data = ArrayList.Create()
-    this.type = ContextBoard.types.WORKER
-    this.mouse = MouseLoc.Create(aiPlayer)
-    this.targeting = Targeting.Create()
+    this.type = ContextBoardModule.types.WORKER
+    this.mouse = MouseLocModule.Create(aiPlayer)
+    this.targeting = TargetingModule.Create()
 
     this.board = CreateMultiboard()
     MultiboardSetTitleText(this.board, "Great shit!")
@@ -104,20 +104,20 @@ function ContextBoard.Create(aiPlayer, aiRace)
 
     function this.Update()
         this.data = ArrayList.Create()
-        if (this.type == ContextBoard.types.WORKER) then
-            MultiboardSetTitleText(this.board, "Worker data")
+        if (this.type == ContextBoardModule.types.WORKER) then
+            MultiboardSetTitleText(this.board, "WorkerDto data")
             this.AddWorkerData()
-        elseif this.type == ContextBoard.types.BUILDINGS then
+        elseif this.type == ContextBoardModule.types.BUILDINGS then
             MultiboardSetTitleText(this.board, "Building data")
             this.AddBuildingData()
-        elseif this.type == ContextBoard.types.TARGETING then
-            MultiboardSetTitleText(this.board, "Targeting data")
+        elseif this.type == ContextBoardModule.types.TARGETING then
+            MultiboardSetTitleText(this.board, "TargetingModule data")
             this.AddTargetingData()
-        elseif this.type == ContextBoard.types.CREEP then
+        elseif this.type == ContextBoardModule.types.CREEP then
             MultiboardSetTitleText(this.board, "Creep data")
             this.AddCreepData()
-        elseif this.type == ContextBoard.types.BUILDERWORKER then
-            MultiboardSetTitleText(this.board, "Builder & Worker data")
+        elseif this.type == ContextBoardModule.types.BUILDERWORKER then
+            MultiboardSetTitleText(this.board, "Builder & WorkerDto data")
             this.AddBuildingData()
             this.data.Push({ name = "-", value = "------------------------" })
             this.AddWorkerData()
@@ -141,17 +141,17 @@ function ContextBoard.Create(aiPlayer, aiRace)
         xpcall(function()
             local msg = GetEventPlayerChatString()
             if msg == "-w" then
-                this.type = ContextBoard.types.WORKER
+                this.type = ContextBoardModule.types.WORKER
             elseif msg == "-b" then
-                this.type = ContextBoard.types.BUILDINGS
+                this.type = ContextBoardModule.types.BUILDINGS
             elseif msg == "-t" then
-                this.type = ContextBoard.types.TARGETING
+                this.type = ContextBoardModule.types.TARGETING
             elseif msg == "-c" then
-                this.type = ContextBoard.types.CREEP
+                this.type = ContextBoardModule.types.CREEP
             elseif msg == "-bw" then
-                this.type = ContextBoard.types.BUILDERWORKER
+                this.type = ContextBoardModule.types.BUILDERWORKER
             elseif msg == "-build" then
-                local l = TownBuildingLocation.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", TownBuildingLocation.sizes.SMALL)
+                local l = TownBuildingLocationModule.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", TownBuildingLocationModule.sizes.SMALL)
                 CreateItem(Utils.FourCC("rde2"), GetLocationX(l), GetLocationY(l))
             elseif msg == "-reset" then
                 aiRace.moduleWorker.UpdateOrdersForWorkers(true)
@@ -159,12 +159,12 @@ function ContextBoard.Create(aiPlayer, aiRace)
         end, logger.Critical)
     end)
 
-    logger.Verbose("Finish Building ContextBoard")
+    logger.Verbose("Finish Building ContextBoardModule")
     return this
 end
-function ContextBoard.ResolveParam(param)
+function ContextBoardModule.ResolveParam(param)
     if (true == false) then
-        return ContextBoard.Create()
+        return ContextBoardModule.Create()
     end
-    return Param.Resolve(param, "ContextBoard")
+    return Param.Resolve(param, "ContextBoardModule")
 end
