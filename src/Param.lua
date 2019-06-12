@@ -7,9 +7,9 @@ function Param.Resolve(param, name)
         if (param.type == name) then
             return param
         else
-            TreeCore.printCritical("expected:", name, "got: ", param.type)
+            TreeCore.CriticalGeneric("expected:", name, "got: ", param.type)
         end
     else
-        TreeCore.printDebug(param, "is nil")
+        TreeCore.DebugGeneric(param, "is nil")
     end
 end
