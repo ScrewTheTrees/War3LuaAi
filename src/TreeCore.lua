@@ -2,7 +2,7 @@ TreeCore = { }
 
 TreeCore.version = 2
 
-TreeCore.printVerbose = true
+TreeCore.printVerbose = false
 TreeCore.printDebug = true
 TreeCore.printWarning = true
 TreeCore.printCritical = true
