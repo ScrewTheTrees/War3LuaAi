@@ -9,7 +9,6 @@ TownAllocatorList = { }
 
 function TownAllocatorList.Create(aiPlayer)
     local this = ArrayList.Create()
-    this.type = "TownAllocatorList"
     local logger = TreeCore.CreateLogger("TownAllocatorList.lua")
     logger.Verbose("Started Building TownAllocatorList")
 

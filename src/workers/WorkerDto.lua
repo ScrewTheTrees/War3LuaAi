@@ -5,7 +5,6 @@ WorkerDto = { }
 
 function WorkerDto.Create(unit)
     local this = { }
-    this.type = "WorkerDto"
 
     this.unit = unit
     this.order = Ids.orderTypes.ORDER_IDLE

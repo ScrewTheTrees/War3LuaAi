@@ -13,7 +13,6 @@ AICoreModule = { }
 ---@class AICoreModule
 function AICoreModule.Create()
     local this = { }
-    this.type = "AICoreModule"
     local logger = TreeCore.CreateLogger("AICoreModule.lua")
 
     logger.Verbose("Started Building AICoreModule")

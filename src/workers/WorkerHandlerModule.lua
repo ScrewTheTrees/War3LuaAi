@@ -16,7 +16,6 @@ WorkerHandlerModule = { }
 ---@class WorkerHandlerModule
 WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
     local this = { }
-    this.type = "AIWorker"
     local logger = TreeCore.CreateLogger("WorkerHandlerModule.lua")
     logger.Verbose("Started Building AIWorker")
 

@@ -15,7 +15,6 @@ BuildingAllocatorList.statuses = {
 
 function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
     local this = ArrayList.Create()
-    this.type = "BuildingAllocatorList"
     local logger = TreeCore.CreateLogger("BuildingAllocatorList.lua")
     logger.Verbose("Started Building BuildingAllocatorList")
     this.aiTownAllocator = aiTownAllocator

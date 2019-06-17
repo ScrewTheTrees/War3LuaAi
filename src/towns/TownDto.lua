@@ -5,7 +5,6 @@ TownDto = { }
 ---@class TownDto
 function TownDto.Create(location, hall, mine)
     local this = { }
-    this.type = "TownDto"
 
     this.location = location
     this.hall = hall

@@ -9,7 +9,6 @@ AIRaceUndeadModule = { }
 
 function AIRaceUndeadModule.Create(aiPlayer)
     local this = AIAbstractRaceModule.Create(aiPlayer)
-    this.type = "AIRaceUndeadModule"
     local logger = TreeCore.CreateLogger("AIRaceUndeadModule.lua")
     logger.Verbose("Make AIRaceUndeadModule")
 

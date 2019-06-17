@@ -7,7 +7,6 @@ DigestModule = { }
 
 function DigestModule.Create(interval)
     local this = { }
-    this.type = "DigestModule"
     local logger = TreeCore.CreateLogger("DigestModule.lua")
     logger.Verbose("Started Building DigestModule")
 

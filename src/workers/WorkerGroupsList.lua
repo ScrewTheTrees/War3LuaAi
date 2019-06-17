@@ -6,7 +6,6 @@ WorkerGroupsList = { }
 
 function WorkerGroupsList.Create(workerTypeConfig)
     local this = ArrayList.Create()
-    this.type = "WorkerGroupsList"
     local logger = TreeCore.CreateLogger("WorkerGroupsList.lua")
 
     logger.Verbose("Started Building WorkerGroupsList")

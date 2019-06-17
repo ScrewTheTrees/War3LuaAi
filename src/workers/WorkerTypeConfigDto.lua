@@ -5,7 +5,6 @@ WorkerTypeConfig = { }
 
 function WorkerTypeConfig.Create(goldUnitType, woodUnitType, buildUnitType, buildIdleOrder)
     local this = { }
-    this.type = "WorkerTypeConfig"
 
     this.gold = goldUnitType
     this.wood = woodUnitType

@@ -6,7 +6,6 @@ AIAbstractRaceModule = { }
 
 function AIAbstractRaceModule.Create(aiPlayer)
     local this = { }
-    this.type = "AIAbstractRaceModule"
     local logger = TreeCore.CreateLogger("AIAbstractRaceModule.lua")
 
     logger.Verbose("Started Building AIRaceInterface")

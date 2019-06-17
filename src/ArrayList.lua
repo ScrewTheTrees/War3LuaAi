@@ -1,8 +1,8 @@
 ArrayList = { }
 
+---@class ArrayList
 function ArrayList.Create(extension, ordered)
     local this = { }
-    this.type = "ArrayList"
 
     this.isOrdered = ordered or false
 

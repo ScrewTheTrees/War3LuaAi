@@ -5,7 +5,6 @@ MouseLocModule = { }
 
 function MouseLocModule.Create(aiPlayer)
     local this = { }
-    this.type = "MouseLocModule"
     local logger = TreeCore.CreateLogger("MouseLocModule.lua")
 
     logger.Verbose("Started Building MouseLocModule")

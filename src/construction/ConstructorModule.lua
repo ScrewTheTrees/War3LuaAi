@@ -9,7 +9,6 @@ ConstructorModule = { }
 
 function ConstructorModule.Create(workerGroups, buildings, townAllocator)
     local this = { }
-    this.type = "ConstructorModule"
     local logger = TreeCore.CreateLogger("ConstructorModule.lua")
 
     this.orders = ArrayList.Create()

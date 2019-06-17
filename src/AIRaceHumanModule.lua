@@ -9,7 +9,6 @@ AIRaceHumanModule = { }
 
 function AIRaceHumanModule.Create(aiPlayer)
     local this = AIAbstractRaceModule.Create(aiPlayer)
-    this.type = "AIRaceHumanModule"
     local logger = TreeCore.CreateLogger("AIRaceHumanModule.lua")
     logger.Verbose("Make AIRaceHumanModule")
 

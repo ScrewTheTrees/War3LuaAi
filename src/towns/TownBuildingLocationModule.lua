@@ -12,7 +12,6 @@ TownBuildingLocationModule.sizes = {
 
 function TownBuildingLocationModule.Create()
     local this = { }
-    this.type = "TownBuildingLocation"
     local logger = TreeCore.CreateLogger("TownBuildingLocationModule.lua")
     local targeting = TargetingModule.Create()
 

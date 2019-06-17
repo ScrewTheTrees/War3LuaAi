@@ -5,7 +5,6 @@ Promise = { }
 
 function Promise.Create()
     local this = { }
-    this.type = "Promise"
     local logger = TreeCore.CreateLogger("Promise.lua")
     local callbackSuccess
     local callbackError

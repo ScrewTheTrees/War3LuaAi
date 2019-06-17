@@ -8,7 +8,6 @@ TargetingModule.builders = {}
 ---@class TargetingModule
 function TargetingModule.Create()
     local this = { }
-    this.type = "TargetingModule"
     local logger = TreeCore.CreateLogger("TargetingModule.lua")
 
     function TargetingModule.builders.Get(builderType)

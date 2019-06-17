@@ -9,7 +9,6 @@ WorkerAllocatorList = { }
 
 function WorkerAllocatorList.Create(aiPlayer)
     local this = ArrayList.Create()
-    this.type = "WorkerAllocatorList"
     local logger = TreeCore.CreateLogger("WorkerAllocatorList.lua")
 
     logger.Verbose("Started Building WorkerAllocatorList")

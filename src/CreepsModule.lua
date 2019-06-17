@@ -6,7 +6,6 @@ CreepsModule = { }
 
 function CreepsModule.Create()
     local this = ArrayList.Create()
-    this.type = "Creep"
     local logger = TreeCore.CreateLogger("CreepsModule.lua")
 
     local campRadius = 832

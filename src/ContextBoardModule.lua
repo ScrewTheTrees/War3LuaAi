@@ -16,7 +16,6 @@ ContextBoardModule.types = {
 
 function ContextBoardModule.Create(aiPlayer, aiRace)
     local this = { }
-    this.type = "ContextBoardModule"
     --Constants
     local logger = TreeCore.CreateLogger("ContextBoardModule.lua")
 
