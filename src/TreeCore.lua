@@ -1,4 +1,5 @@
 TreeCore = { }
+TreeCore.__index = TreeCore
 
 TreeCore.version = 2
 
@@ -7,32 +8,38 @@ TreeCore.printDebug = true
 TreeCore.printWarning = true
 TreeCore.printCritical = true
 
+TreeCore.uuidLength = 6
+
 -- Version 1 API
 function TreeCore.CreateLogger(name)
     local this = {};
     setmetatable(this, TreeCore)
-    this.name = tostring(name);
+    this.name = tostring(name)
+    this.uuid = TreeCore.CreateUuid()
     this.Verbose = function(...)
         if (this.printVerbose) then
-            print(this.name, "-> Verbose ->", ...)
+            local s = "[%s]%s->Verbose->"
+            print(s:format(this.uuid:sub(0, this.uuidLength), this.name), ...)
         end
     end
     this.Debug = function(...)
         if (this.printDebug) then
-            print(TreeCore.RGBTextString(255, 255, 0, this.name, "-> Debug ->", ...))
+            local s = "[%4s]%s->Debug->"
+            print(TreeCore.RGBTextString(255, 255, 0, s:format(this.uuid:sub(0, this.uuidLength), this.name), ...))
         end
     end
     this.Warning = function(...)
         if (this.printWarning) then
-            print(TreeCore.RGBTextString(255, 200, 0, this.name,"-> Warning ->", ...))
+            local s = "[%s]%s->Warning->"
+            print(TreeCore.RGBTextString(255, 200, 0, s:format(this.uuid:sub(0, this.uuidLength), this.name), ...))
         end
     end
     this.Critical = function(...)
         if (this.printCritical) then
-            print(TreeCore.RGBTextString(255, 0, 0, this.name, "-> Critical ->", ...))
+            local s = "[%s]%s->Critical->"
+            print(TreeCore.RGBTextString(255, 0, 0, s:format(this.uuid:sub(0, this.uuidLength), this.name), ...))
         end
     end
-
     return this
 end
 
@@ -45,7 +52,16 @@ function TreeCore.RGBTextString(red, green, blue, ...)
     return ret
 end
 
+
 -- Version 2
+function TreeCore.CreateUuid()
+    local template = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+    return string.gsub(template, '[xy]', function(c)
+        local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
+        return string.format('%x', v)
+    end)
+end
+
 TreeCore.logger = TreeCore.CreateLogger("Generic")
 function TreeCore.VerboseGeneric(...)
     TreeCore.logger.Verbose(...)

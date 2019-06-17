@@ -16,7 +16,7 @@ function DigestModule.Create(interval)
     this.digest = { trigger = CreateTrigger() }
     this.digest.event = TriggerRegisterTimerEvent(this.digest.trigger, interval, true)
     this.digest.action = TriggerAddAction(this.digest.trigger, function()
-        logger.Debug("DigestModule")
+        logger.Verbose("DigestModule")
         this.additionalFunc.ForEach(function(func)
             local digestFunc = DigestFunctionDto.ResolveParam(func)
             xpcall(digestFunc.func, logger.Critical)
