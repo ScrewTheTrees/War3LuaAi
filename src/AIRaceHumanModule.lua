@@ -27,9 +27,3 @@ function AIRaceHumanModule.Create(aiPlayer)
     return this
 end
 
-function AIRaceHumanModule.ResolveParam(param)
-    if (true == false) then
-        return AIRaceHumanModule.Create()
-    end
-    return Param.Resolve(param, "AIRaceHumanModule")
-end

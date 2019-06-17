@@ -28,9 +28,3 @@ function AIRaceNightElfModule.Create(aiPlayer)
     return this
 end
 
-function AIRaceNightElfModule.ResolveParam(param)
-    if (true == false) then
-        return AIRaceNightElfModule.Create()
-    end
-    return Param.Resolve(param, "AIRaceNightElfModule")
-end

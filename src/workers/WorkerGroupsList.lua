@@ -62,9 +62,3 @@ function WorkerGroupsList.Create(workerTypeConfig)
     return this
 end
 
-function WorkerGroupsList.ResolveParam(param)
-    if (true == false) then
-        return WorkerGroupsList.Create()
-    end
-    return Param.Resolve(param, "WorkerGroupsList")
-end

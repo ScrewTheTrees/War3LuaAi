@@ -13,13 +13,14 @@ require("construction.ConstructorModule")
 
 WorkerHandlerModule = { }
 
+---@class WorkerHandlerModule
 WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
     local this = { }
     this.type = "AIWorker"
     local logger = TreeCore.CreateLogger("WorkerHandlerModule.lua")
     logger.Verbose("Started Building AIWorker")
 
-    this.workerTypeConfig = WorkerTypeConfig.ResolveParam(workerTypeConfig)
+    this.workerTypeConfig = workerTypeConfig
 
     this.townAllocator = TownAllocatorList.Create(aiPlayer)
     this.workerAllocator = WorkerAllocatorList.Create(aiPlayer)
@@ -122,10 +123,4 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
     logger.Verbose("Finish Building AIWorker")
 
     return this
-end
-function WorkerHandlerModule.ResolveParam(param)
-    if (true == false) then
-        return WorkerHandlerModule.Create()
-    end
-    return Param.Resolve(param, "WorkerHandlerModule")
 end

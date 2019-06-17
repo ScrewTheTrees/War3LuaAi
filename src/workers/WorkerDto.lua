@@ -14,9 +14,3 @@ function WorkerDto.Create(unit)
     return this
 end
 
-function WorkerDto.ResolveParam(param)
-    if (true == false) then
-        return WorkerDto.Create()
-    end
-    return Param.Resolve(param, "WorkerDto")
-end

@@ -5,6 +5,7 @@ require("utils.Utils")
 TargetingModule = { }
 TargetingModule.builders = {}
 
+---@class TargetingModule
 function TargetingModule.Create()
     local this = { }
     this.type = "TargetingModule"
@@ -38,9 +39,3 @@ function TargetingModule.Create()
     return this
 end
 
-function TargetingModule.ResolveParam(param)
-    if (true == false) then
-        return TargetingModule.Create()
-    end
-    return Param.Resolve(param, "TargetingModule")
-end

@@ -18,7 +18,7 @@ function DigestModule.Create(interval)
     this.digest.action = TriggerAddAction(this.digest.trigger, function()
         logger.Verbose("DigestModule")
         this.additionalFunc.ForEach(function(func)
-            local digestFunc = DigestFunctionDto.ResolveParam(func)
+            local digestFunc = func
             xpcall(digestFunc.func, logger.Critical)
         end)
     end)
@@ -28,7 +28,7 @@ function DigestModule.Create(interval)
     end
     function this.RemoveFromDigest(name)
         this.additionalFunc.ForEach(function (element)
-            local digestFunc = DigestFunctionDto.ResolveParam(element)
+            local digestFunc = element
             if (digestFunc.name == name) then
                 this.additionalFunc.PopByReference(index)
             end
@@ -39,9 +39,3 @@ function DigestModule.Create(interval)
     return this
 end
 
-function DigestModule.ResolveParam(param)
-    if (true == false) then
-        return DigestModule.Create()
-    end
-    return Param.Resolve(param, "DigestModule")
-end

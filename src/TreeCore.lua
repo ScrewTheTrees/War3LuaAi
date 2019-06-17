@@ -11,6 +11,7 @@ TreeCore.printCritical = true
 TreeCore.uuidLength = 6
 
 -- Version 1 API
+---@class Logger
 function TreeCore.CreateLogger(name)
     local this = {};
     setmetatable(this, TreeCore)

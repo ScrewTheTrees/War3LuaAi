@@ -27,9 +27,3 @@ function MouseLocModule.Create(aiPlayer)
     return this
 end
 
-function MouseLocModule.ResolveParam(param)
-    if (true == false) then
-        return MouseLocModule.Create()
-    end
-    return Param.Resolve(param, "MouseLocModule")
-end

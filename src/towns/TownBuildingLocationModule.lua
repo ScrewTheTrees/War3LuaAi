@@ -66,9 +66,3 @@ function TownBuildingLocationModule.Create()
     return this
 end
 
-function TownBuildingLocationModule.ResolveParam(param)
-    if (true == false) then
-        return TownBuildingLocationModule.Create()
-    end
-    return Param.Resolve(param, "TownBuildingLocation")
-end

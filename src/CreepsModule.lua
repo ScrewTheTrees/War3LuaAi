@@ -60,9 +60,3 @@ function CreepsModule.Create()
     return this
 end
 
-function CreepsModule.ResolveParam(param)
-    if (true == false) then
-        return CreepsModule.Create()
-    end
-    return Param.Resolve(param, "Creep")
-end

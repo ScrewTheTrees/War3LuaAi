@@ -10,6 +10,7 @@ require("DigestModule")
 
 AICoreModule = { }
 
+---@class AICoreModule
 function AICoreModule.Create()
     local this = { }
     this.type = "AICoreModule"
@@ -29,9 +30,3 @@ function AICoreModule.Create()
     return this
 end
 
-function AICoreModule.ResolveParam(param)
-    if (true == false) then
-        return AICoreModule.Create()
-    end
-    return Param.Resolve(param, "AICoreModule")
-end

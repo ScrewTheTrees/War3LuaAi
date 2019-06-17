@@ -15,9 +15,3 @@ function WorkerTypeConfig.Create(goldUnitType, woodUnitType, buildUnitType, buil
     return this
 end
 
-function WorkerTypeConfig.ResolveParam(param)
-    if (true == false) then
-        return WorkerTypeConfig.Create()
-    end
-    return Param.Resolve(param, "WorkerTypeConfig")
-end

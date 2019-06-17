@@ -162,9 +162,3 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
     logger.Verbose("Finish Building ContextBoardModule")
     return this
 end
-function ContextBoardModule.ResolveParam(param)
-    if (true == false) then
-        return ContextBoardModule.Create()
-    end
-    return Param.Resolve(param, "ContextBoardModule")
-end

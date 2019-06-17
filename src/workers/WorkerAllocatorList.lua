@@ -40,9 +40,3 @@ function WorkerAllocatorList.Create(aiPlayer)
     return this
 end
 
-function WorkerAllocatorList.ResolveParam(param)
-    if (true == false) then
-        return WorkerAllocatorList.Create()
-    end
-    return Param.Resolve(param, "WorkerAllocatorList")
-end

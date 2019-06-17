@@ -27,9 +27,3 @@ function AIRaceOrcModule.Create(aiPlayer)
     return this
 end
 
-function AIRaceOrcModule.ResolveParam(param)
-    if (true == false) then
-        return AIRaceOrcModule.Create()
-    end
-    return Param.Resolve(param, "AIRaceOrcModule")
-end

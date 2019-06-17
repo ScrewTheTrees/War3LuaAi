@@ -17,13 +17,14 @@ function TownAllocatorList.Create(aiPlayer)
         local closestTown = 1
         local distance = math.huge
 
-        this.ForEach(function(value, index)
+        ---@param value TownDto
+        for index, value in ipairs(this) do
             local dist = Utils.DistanceBetweenPoints(location, value.location)
             if (dist < distance) then
                 closestTown = index
                 distance = dist
             end
-        end)
+        end
         return closestTown
     end
 
@@ -48,9 +49,3 @@ function TownAllocatorList.Create(aiPlayer)
     return this
 end
 
-function TownAllocatorList.ResolveParam(param)
-    if (true == false) then
-        return TownAllocatorList.Create()
-    end
-    return Param.Resolve(param, "TownAllocatorList")
-end

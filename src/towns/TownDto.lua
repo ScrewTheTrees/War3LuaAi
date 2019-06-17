@@ -1,8 +1,8 @@
 require("TreeCore")
-require("Param")
 
 TownDto = { }
 
+---@class TownDto
 function TownDto.Create(location, hall, mine)
     local this = { }
     this.type = "TownDto"
@@ -12,11 +12,4 @@ function TownDto.Create(location, hall, mine)
     this.mine = mine
 
     return this
-end
-
-function TownDto.ResolveParam(param)
-    if (true == false) then
-        return TownDto.Create()
-    end
-    return Param.Resolve(param, "TownDto")
 end

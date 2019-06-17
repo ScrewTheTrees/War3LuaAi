@@ -28,9 +28,3 @@ function AIRaceUndeadModule.Create(aiPlayer)
     return this
 end
 
-function AIRaceUndeadModule.ResolveParam(param)
-    if (true == false) then
-        return AIRaceUndeadModule.Create()
-    end
-    return Param.Resolve(param, "AIRaceUndeadModule")
-end

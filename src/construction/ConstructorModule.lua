@@ -17,9 +17,9 @@ function ConstructorModule.Create(workerGroups, buildings, townAllocator)
 
     logger.Verbose("Started Building ConstructorModule")
 
-    this.workerGroups = WorkerGroupsList.ResolveParam(workerGroups)
-    this.buildings = BuildingAllocatorList.ResolveParam(buildings)
-    this.townAllocator = TownAllocatorList.ResolveParam(townAllocator)
+    this.workerGroups = workerGroups
+    this.buildings = buildings
+    this.townAllocator = townAllocator
 
     --CODE
 
@@ -27,9 +27,3 @@ function ConstructorModule.Create(workerGroups, buildings, townAllocator)
     return this
 end
 
-function ConstructorModule.ResolveParam(param)
-    if (true == false) then
-        return ConstructorModule.Create()
-    end
-    return Param.Resolve(param, "ConstructorModule")
-end

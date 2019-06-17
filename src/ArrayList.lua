@@ -81,9 +81,3 @@ function ArrayList.Create(extension, ordered)
     return this
 end
 
-function ArrayList.ResolveParam(param)
-    if (true == false) then
-        return ArrayList.Create()
-    end
-    return Param.Resolve(param, "ArrayList")
-end

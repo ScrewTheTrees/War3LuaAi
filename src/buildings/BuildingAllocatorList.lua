@@ -18,7 +18,7 @@ function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
     this.type = "BuildingAllocatorList"
     local logger = TreeCore.CreateLogger("BuildingAllocatorList.lua")
     logger.Verbose("Started Building BuildingAllocatorList")
-    this.aiTownAllocator = TownAllocatorList.ResolveParam(aiTownAllocator)
+    this.aiTownAllocator = aiTownAllocator
 
     --TODO: Make DTO
     function this.Push(unit, status, townIndex)
@@ -142,9 +142,3 @@ function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
     return this
 end
 
-function BuildingAllocatorList.ResolveParam(param)
-    if (true == false) then
-        return BuildingAllocatorList.Create()
-    end
-    return Param.Resolve(param, "BuildingAllocatorList")
-end

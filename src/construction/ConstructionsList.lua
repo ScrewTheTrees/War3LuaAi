@@ -1,5 +1,4 @@
 require("TreeCore")
-require("Param")
 require("ArrayList")
 
 ConstructionsList = { }
@@ -14,11 +13,4 @@ function ConstructionsList.Create()
 
     logger.Verbose("Finish Building ConstructionsList")
     return this
-end
-
-function ConstructionsList.ResolveParam(param)
-    if (true == false) then
-        return ConstructionsList.Create()
-    end
-    return Param.Resolve(param, "ConstructionsList")
 end

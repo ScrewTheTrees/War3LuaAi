@@ -32,9 +32,3 @@ function Promise.Create()
     return this
 end
 
-function Promise.ResolveParam(param)
-    if (true == false) then
-        return Promise.Create()
-    end
-    return Param.Resolve(param, "Promise")
-end

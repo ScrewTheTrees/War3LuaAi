@@ -25,9 +25,3 @@ function AIAbstractRaceModule.Create(aiPlayer)
     return this
 end
 
-function AIAbstractRaceModule.ResolveParam(param)
-    if (true == false) then
-        return AIAbstractRaceModule.Create()
-    end
-    return Param.Resolve(param, "AIAbstractRaceModule")
-end
