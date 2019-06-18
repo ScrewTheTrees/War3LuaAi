@@ -68,6 +68,25 @@ function WorkerGroupsList.Create(workerTypeConfig)
         return constructor
     end
 
+    ---@param fromOrderType OrderTypes
+    ---@param toOrderType OrderTypes
+    function this.ReplaceWorkerOrder(fromOrderType, toOrderType)
+        this.ForEach(function(workerGroup)
+            ---@param worker WorkerDto
+            workerGroup.workerIndexes.ForEach(function(worker)
+                if (worker.order == fromOrderType) then
+                    worker.order = toOrderType
+                end
+            end)
+        end)
+        ---@param worker WorkerDto
+        this.idleIndexes.ForEach(function(worker)
+            if (worker.order == fromOrderType) then
+                worker.order = toOrderType
+            end
+        end)
+    end
+
     function this.ClearWorker (worker)
         this.idleIndexes.PopByReference(worker)
         for i, group in ipairs(this) do

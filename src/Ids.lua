@@ -30,7 +30,7 @@ Ids.goldmineIds = {
     ugol = "ugol",
     egol = "egol",
 }
-
+---@class OrderTypes
 Ids.orderTypes = {
     ORDER_DEAD = "ORDER_DEAD",
     ORDER_IDLE = "ORDER_IDLE",

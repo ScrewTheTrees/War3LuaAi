@@ -9,20 +9,21 @@ require("DigestModule")
 
 AICoreModule = { }
 
----@class AICoreModule
 function AICoreModule.Create()
+    ---@class AICoreModule
     local this = { }
     local logger = TreeCore.CreateLogger("AICoreModule.lua")
-
     logger.Verbose("Started Building AICoreModule")
+
+    DigestModule.mainDigest = DigestModule.Create(0.1)
+    DigestModule.slowDigest = DigestModule.Create(1)
 
     this.ai = ArrayList.Create()
 
     this.ai.Push(AIRaceHumanModule.Create(Player(0)))
     local board = ContextBoardModule.Create(Player(0), this.ai.Get(1))
 
-    this.mainDigest = DigestModule.Create(0.1)
-    this.mainDigest.AddToDigest("board", board.Update)
+    DigestModule.mainDigest.AddToDigest("board", board.Update)
 
     logger.Verbose("Finish Building AICoreModule")
     return this

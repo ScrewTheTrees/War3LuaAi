@@ -1,6 +1,7 @@
 require("TreeCore")
 require("ArrayList")
 require("towns.TownAllocatorList")
+require("buildings.BuildingDto")
 
 BuildingAllocatorList = { }
 
@@ -12,18 +13,13 @@ BuildingAllocatorList.statuses = {
     RESEARCHING = "RESEARCHING",
 }
 
----@class BuildingAllocatorList : ArrayList
-function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
+---@param townAllocator TownAllocatorList
+function BuildingAllocatorList.Create(aiPlayer, townAllocator)
+    ---@class BuildingAllocatorList : ArrayList
     local this = ArrayList.Create()
     local logger = TreeCore.CreateLogger("BuildingAllocatorList.lua")
     logger.Verbose("Started Building BuildingAllocatorList")
-    this.aiTownAllocator = aiTownAllocator
-
-    --TODO: Make DTO
-    function this.Push(unit, status, townIndex)
-        this[#this + 1] = { unit = unit, status = status, targetType = nil, townIndex = townIndex }
-        return #this
-    end
+    this.aiTownAllocator = townAllocator
 
     function this.GetByUnit (unit)
         for i = 1, #this do
@@ -41,21 +37,38 @@ function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
         end
         return nil
     end
+    ---@param unitTypeNumber number
+    ---@param onlyCompleted boolean @Include only nonConstructing units.
+    function this.ListByUnitType(unitTypeNumber, onlyCompleted)
+        local list = ArrayList.Create()
+        this.ForEach(function(building)
+            if (GetUnitTypeId(building.unit) == unitTypeNumber) then
+                if ((onlyCompleted and not building.status == BuildingAllocatorList.statuses.CONSTRUCTING) or not onlyCompleted) then
+                    list.Push(building)
+                end
+            end
+        end)
+        return list
+    end
 
     local halls = Utils.GetStartUnits(aiPlayer, Ids.hallIds)
-    this.Push(halls[1], BuildingAllocatorList.statuses.IDLE, 1)
+    this.Push(BuildingDto.Create(halls[1], BuildingAllocatorList.statuses.IDLE, 1))
 
     logger.Verbose("Finish Building BuildingAllocatorList")
 
     this.onStartConstruct = {}
+    this.onStartConstruct.callbacks = ArrayList.Create()
     this.onStartConstruct.trigger = CreateTrigger()
     this.onStartConstruct.event = TriggerRegisterPlayerUnitEvent(this.onStartConstruct.trigger, aiPlayer, EVENT_PLAYER_UNIT_CONSTRUCT_START, nil)
     this.onStartConstruct.action = TriggerAddAction(this.onStartConstruct.trigger, function()
         local building = GetTriggerUnit()
         local loc = GetUnitLoc(building)
         this.aiTownAllocator.MakeTown(building)
-        this.Push(building, BuildingAllocatorList.statuses.CONSTRUCTING, this.aiTownAllocator.GetClosestTownId(loc))
+        local index = this.Push(BuildingDto.Create(building, BuildingAllocatorList.statuses.CONSTRUCTING, this.aiTownAllocator.GetClosestTownId(loc)))
         RemoveLocation(loc)
+        this.onStartConstruct.callbacks.ForEach(function(func)
+            func(this.Get(index))
+        end)
     end)
     this.onCancelConstruct = {}
     this.onCancelConstruct.trigger = CreateTrigger()
@@ -65,11 +78,15 @@ function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
         this.PopByUnit(building)
     end)
     this.onFinishConstruct = {}
+    this.onFinishConstruct.callbacks = ArrayList.Create()
     this.onFinishConstruct.trigger = CreateTrigger()
     this.onFinishConstruct.event = TriggerRegisterPlayerUnitEvent(this.onFinishConstruct.trigger, aiPlayer, EVENT_PLAYER_UNIT_CONSTRUCT_FINISH, nil)
     this.onFinishConstruct.action = TriggerAddAction(this.onFinishConstruct.trigger, function()
         local building = GetTriggerUnit()
         this.GetByUnit(building).status = BuildingAllocatorList.statuses.IDLE
+        this.onFinishConstruct.callbacks.ForEach(function(func)
+            func(this.GetByUnit(building))
+        end)
     end)
 
     this.onBuildingDie = {}
@@ -104,7 +121,6 @@ function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
     this.onStartUpgrade.event = TriggerRegisterPlayerUnitEvent(this.onStartUpgrade.trigger, aiPlayer, EVENT_PLAYER_UNIT_UPGRADE_START, nil)
     this.onStartUpgrade.action = TriggerAddAction(this.onStartUpgrade.trigger, function()
         local struct = this.GetByUnit(GetTriggerUnit())
-        print(GetTrainedUnitType())
         struct.status = BuildingAllocatorList.statuses.UPGRADING
         struct.targetType = "?"
     end)

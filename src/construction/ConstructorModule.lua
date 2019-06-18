@@ -1,6 +1,7 @@
 require("TreeCore")
 require("utils.Utils")
 require("ArrayList")
+require("DigestModule")
 require("buildings.BuildingAllocatorList")
 require("towns.TownAllocatorList")
 require("towns.TownBuildingLocationModule")
@@ -16,8 +17,8 @@ ConstructorModule.errors = {
 ---@param workerGroups WorkerGroupsList
 ---@param buildings BuildingAllocatorList
 ---@param townAllocator TownAllocatorList
----@class ConstructorModule
 function ConstructorModule.Create(aiPlayer, workerGroups, buildings, townAllocator)
+    ---@class ConstructorModule
     local this = { }
     local logger = TreeCore.CreateLogger("ConstructorModule.lua")
 
@@ -49,6 +50,10 @@ function ConstructorModule.Create(aiPlayer, workerGroups, buildings, townAllocat
         end
     end
 
+    function this.UpdateAllTickets()
+        this.ResolveWorkers()
+    end
+
     ---@param index number
     function this.UpdateConstructionTicket(index)
         ---@type ConstructionTicketDto
@@ -57,14 +62,31 @@ function ConstructorModule.Create(aiPlayer, workerGroups, buildings, townAllocat
         local worker = ticket.worker
         local buildLoc = this.buildingLocation.GetTownBuildingLocation(GetLocationX(town.location), GetLocationY(town.location), ticket.targetType, worker.unitType, ticket.buildingLocationSize)
         IssueBuildOrderById(worker.unit, Utils.FourCC(ticket.targetType), GetLocationX(buildLoc), GetLocationY(buildLoc))
-        worker.order = Ids.orderTypes.ORDER_BUILD
-        print(Utils.CreateJson(worker, 2))
-        print(GetLocationX(buildLoc), GetLocationY(buildLoc))
+        this.ResolveWorkers()
+    end
+
+    function this.ResolveWorkers()
+        this.workerGroups.ReplaceWorkerOrder(Ids.orderTypes.ORDER_BUILD, this.workerGroups.workerTypeConfig.buildIdleOrder)
+        ---@param ticket ConstructionTicketDto
+        this.constructionList.ForEach(function(ticket)
+            ticket.worker.order = Ids.orderTypes.ORDER_BUILD
+        end)
     end
 
     function this.ResolveUnitsInConstruction(unitType)
         return #Utils.GetUnitsOfTypeByPlayer(unitType, aiPlayer)
     end
+
+    DigestModule.slowDigest.AddToDigest("ConstructorTicket" .. tostring(aiPlayer), this.UpdateAllTickets)
+
+    ---@param buildingDto BuildingDto
+    this.buildings.onStartConstruct.callbacks.Push(function(buildingDto)
+        print(Utils.CreateJson(buildingDto, 3))
+    end)
+    ---@param buildingDto BuildingDto
+    this.buildings.onFinishConstruct.callbacks.Push(function(buildingDto)
+        print(Utils.CreateJson(buildingDto, 3))
+    end)
 
     logger.Verbose("Finish Building ConstructorModule")
     return this
