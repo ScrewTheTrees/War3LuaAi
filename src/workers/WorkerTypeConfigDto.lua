@@ -1,9 +1,8 @@
 require("TreeCore")
-require("Param")
+WorkerTypeConfigDto = { }
 
-WorkerTypeConfig = { }
-
-function WorkerTypeConfig.Create(goldUnitType, woodUnitType, buildUnitType, buildIdleOrder)
+function WorkerTypeConfigDto.Create(goldUnitType, woodUnitType, buildUnitType, buildIdleOrder)
+    ---@class WorkerTypeConfigDto
     local this = { }
 
     this.gold = goldUnitType

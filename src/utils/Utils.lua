@@ -120,3 +120,21 @@ function Utils.GetUnitsAround(location, ...)
     end
     return arr
 end
+
+function Utils.GetUnitsOfTypeByPlayer(unitId, player)
+    local f = Filter(function()
+        return (GetUnitTypeId(GetFilterUnit()) == Utils.FourCC(unitId))
+    end)
+    local g = CreateGroup()
+    GroupEnumUnitsOfPlayer(g, player, f)
+    local unit = FirstOfGroup(g)
+    local arr = {}
+    while not (unit == nil) do
+        arr[#arr + 1] = unit
+        GroupRemoveUnit(g, unit)
+        unit = FirstOfGroup(g)
+    end
+    DestroyFilter(f)
+    DestroyGroup(g)
+    return arr
+end

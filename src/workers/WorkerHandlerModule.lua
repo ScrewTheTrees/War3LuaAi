@@ -1,5 +1,4 @@
 require("TreeCore")
-require("Param")
 require("workers.WorkerDto")
 require("utils.Utils")
 require("workers.WorkerAllocatorList")
@@ -13,8 +12,8 @@ require("construction.ConstructorModule")
 
 WorkerHandlerModule = { }
 
----@class WorkerHandlerModule
 WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
+    ---@class WorkerHandlerModule
     local this = { }
     local logger = TreeCore.CreateLogger("WorkerHandlerModule.lua")
     logger.Verbose("Started Building AIWorker")
@@ -26,7 +25,7 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
     this.workerGroups = WorkerGroupsList.Create(workerTypeConfig)
 
     this.buildings = BuildingAllocatorList.Create(aiPlayer, this.townAllocator)
-    this.constructor = ConstructorModule.Create(this.workerGroups, this.buildings, this.townAllocator)
+    this.constructor = ConstructorModule.Create(aiPlayer, this.workerGroups, this.buildings, this.townAllocator)
 
     local function PerformWorkerOrder(worker, orderType, townIndex, hardReset)
         hardReset = hardReset or false
@@ -34,7 +33,7 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
             if orderType == Ids.orderTypes.ORDER_DRAFTED then
                 return nil
             elseif orderType == Ids.orderTypes.ORDER_BUILD then
-                return nil
+                return nil --handled in ConstructorModule
             elseif orderType == Ids.orderTypes.ORDER_GOLDMINE then
                 IssueTargetOrder(worker.unit, "harvest", this.townAllocator.GetOrFirst(townIndex).mine)
                 worker.order = Ids.orderTypes.ORDER_GOLDMINE

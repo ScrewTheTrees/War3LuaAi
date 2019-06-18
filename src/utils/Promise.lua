@@ -1,6 +1,4 @@
 require("TreeCore")
-require("Param")
-
 Promise = { }
 
 function Promise.Create()

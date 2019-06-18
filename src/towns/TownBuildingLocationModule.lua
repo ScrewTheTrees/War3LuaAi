@@ -1,16 +1,16 @@
 require("TreeCore")
-require("Param")
 require("utils.Utils")
 require("utils.TargetingModule")
 
 TownBuildingLocationModule = { }
+---@class TownBuildingLocationModule.locationSizes
 TownBuildingLocationModule.sizes = {
     TINY = 32,
     SMALL = 96,
     MEDIUM = 128,
 }
-
 function TownBuildingLocationModule.Create()
+    ---@class TownBuildingLocationModule
     local this = { }
     local logger = TreeCore.CreateLogger("TownBuildingLocationModule.lua")
     local targeting = TargetingModule.Create()

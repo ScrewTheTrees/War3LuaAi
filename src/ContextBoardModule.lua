@@ -1,5 +1,4 @@
 require("TreeCore")
-require("Param")
 require("utils.Utils")
 require("utils.MouseLocModule")
 require("utils.TargetingModule")
@@ -14,11 +13,13 @@ ContextBoardModule.types = {
     BUILDERWORKER = "BUILDERWORKER",
 }
 
+---@class ContextBoardModule
+---@param aiPlayer number
+---@param aiRace AIAbstractRaceModule
 function ContextBoardModule.Create(aiPlayer, aiRace)
     local this = { }
     --Constants
     local logger = TreeCore.CreateLogger("ContextBoardModule.lua")
-
     logger.Verbose("Started Building ContextBoardModule")
 
     this.data = ArrayList.Create()
@@ -150,8 +151,7 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
             elseif msg == "-bw" then
                 this.type = ContextBoardModule.types.BUILDERWORKER
             elseif msg == "-build" then
-                local l = TownBuildingLocationModule.Create().GetTownBuildingLocation(this.mouse.x, this.mouse.y, "hhou", "hpea", TownBuildingLocationModule.sizes.SMALL)
-                CreateItem(Utils.FourCC("rde2"), GetLocationX(l), GetLocationY(l))
+                aiRace.moduleWorker.constructor.ConstructBuildingAsQuery("hhou", 99, 1, TownBuildingLocationModule.sizes.SMALL)
             elseif msg == "-reset" then
                 aiRace.moduleWorker.UpdateOrdersForWorkers(true)
             end

@@ -1,5 +1,4 @@
 require("TreeCore")
-require("Param")
 require("ArrayList")
 require("towns.TownAllocatorList")
 
@@ -13,6 +12,7 @@ BuildingAllocatorList.statuses = {
     RESEARCHING = "RESEARCHING",
 }
 
+---@class BuildingAllocatorList : ArrayList
 function BuildingAllocatorList.Create(aiPlayer, aiTownAllocator)
     local this = ArrayList.Create()
     local logger = TreeCore.CreateLogger("BuildingAllocatorList.lua")

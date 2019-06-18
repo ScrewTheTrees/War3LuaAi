@@ -2,8 +2,8 @@ require("TreeCore")
 
 TownDto = { }
 
----@class TownDto
 function TownDto.Create(location, hall, mine)
+    ---@class TownDto
     local this = { }
 
     this.location = location

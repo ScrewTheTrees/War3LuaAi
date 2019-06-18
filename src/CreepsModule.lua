@@ -1,9 +1,9 @@
 require("TreeCore")
-require("Param")
 require("ArrayList")
 
 CreepsModule = { }
 
+---@class CreepsModule : ArrayList
 function CreepsModule.Create()
     local this = ArrayList.Create()
     local logger = TreeCore.CreateLogger("CreepsModule.lua")
@@ -58,4 +58,3 @@ function CreepsModule.Create()
     logger.Verbose("Finish Building Creep")
     return this
 end
-

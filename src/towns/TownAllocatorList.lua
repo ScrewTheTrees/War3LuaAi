@@ -1,5 +1,4 @@
 require("TreeCore")
-require("Param")
 require("towns.TownDto")
 require("utils.Utils")
 require("ArrayList")
@@ -8,6 +7,7 @@ require("Ids")
 TownAllocatorList = { }
 
 function TownAllocatorList.Create(aiPlayer)
+    ---@class TownAllocatorList : ArrayList
     local this = ArrayList.Create()
     local logger = TreeCore.CreateLogger("TownAllocatorList.lua")
     logger.Verbose("Started Building TownAllocatorList")

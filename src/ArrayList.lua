@@ -1,12 +1,13 @@
 ArrayList = { }
 
----@class ArrayList
 function ArrayList.Create(extension, ordered)
+    ---@class ArrayList
     local this = { }
-
     this.isOrdered = ordered or false
 
-    --Constants
+    function this.Size()
+        return #this
+    end
     function this.Get(index)
         index = index or 1
         return this[index]
@@ -30,6 +31,7 @@ function ArrayList.Create(extension, ordered)
         this[index] = value
         return this[index]
     end
+    ---@return number @The new size
     function this.Push(value)
         this[#this + 1] = value
         return #this

@@ -1,5 +1,4 @@
 require("TreeCore")
-require("Param")
 require("AIRaceHumanModule")
 require("AIRaceOrcModule")
 require("AIRaceUndeadModule")

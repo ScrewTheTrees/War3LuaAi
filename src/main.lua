@@ -1,6 +1,4 @@
 require("AICoreModule")
-require("Param")
-
 local gg_trg_Start
 
 function MapStart()

@@ -1,6 +1,4 @@
 require("TreeCore")
-require("Param")
-
 MouseLocModule = { }
 
 function MouseLocModule.Create(aiPlayer)

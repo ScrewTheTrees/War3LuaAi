@@ -1,5 +1,4 @@
 require("TreeCore")
-require("Param")
 require("CreepsModule")
 require("workers.WorkerHandlerModule")
 require("AIAbstractRaceModule")
@@ -12,7 +11,7 @@ function AIRaceHumanModule.Create(aiPlayer)
     local logger = TreeCore.CreateLogger("AIRaceHumanModule.lua")
     logger.Verbose("Make AIRaceHumanModule")
 
-    this.workerTypeConfig = WorkerTypeConfig.Create("hpea", "hpea", "hpea", Ids.orderTypes.ORDER_WOOD)
+    this.workerTypeConfig = WorkerTypeConfigDto.Create("hpea", "hpea", "hpea", Ids.orderTypes.ORDER_WOOD)
     this.moduleWorker = WorkerHandlerModule.Create(aiPlayer, this.workerTypeConfig)
 
     this.moduleWorker.workerGroups.Set(1, 3, Ids.orderTypes.ORDER_GOLDMINE, 1)

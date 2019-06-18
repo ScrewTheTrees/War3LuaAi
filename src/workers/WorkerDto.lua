@@ -1,9 +1,8 @@
 require("TreeCore")
-require("Param")
-
 WorkerDto = { }
 
 function WorkerDto.Create(unit)
+    ---@class WorkerDto
     local this = { }
 
     this.unit = unit

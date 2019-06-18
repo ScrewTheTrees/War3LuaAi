@@ -1,10 +1,11 @@
 require("TreeCore")
-require("Param")
 require("ArrayList")
 
 WorkerGroupsList = { }
 
+---@param workerTypeConfig WorkerTypeConfigDto
 function WorkerGroupsList.Create(workerTypeConfig)
+    ---@class WorkerGroupsList : ArrayList
     local this = ArrayList.Create()
     local logger = TreeCore.CreateLogger("WorkerGroupsList.lua")
 
@@ -49,13 +50,30 @@ function WorkerGroupsList.Create(workerTypeConfig)
             end
         end
     end
+
+    ---@return WorkerDto @nullable
+    function this.GetIdleConstructor()
+        ---@type WorkerDto
+        local constructor
+        this.ForEach(function(workerGroup)
+            if (workerGroup.orderType == Ids.orderTypes.ORDER_BUILD) then
+                ---@param worker WorkerDto
+                workerGroup.workerIndexes.ForEach(function(worker)
+                    if (not (worker.order == Ids.orderTypes.ORDER_BUILD or worker.order == Ids.orderTypes.ORDER_DRAFTED)) then
+                        constructor = worker
+                    end
+                end)
+            end
+        end)
+        return constructor
+    end
+
     function this.ClearWorker (worker)
         this.idleIndexes.PopByReference(worker)
         for i, group in ipairs(this) do
             group.workerIndexes.PopByReference(worker)
         end
     end
-    --CODE
 
     logger.Verbose("Finish Building WorkerGroupsList")
     return this
