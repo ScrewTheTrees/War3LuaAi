@@ -8,7 +8,8 @@ ContextBoardModule = { }
 ContextBoardModule.types = {
     WORKER = "WORKER",
     BUILDINGS = "BUILDINGS",
-    TARGETING = "TARGETING",
+    TICKET = "TICKET",
+    TICKETWORKER = "TICKETWORKER",
     CREEP = "CREEP",
     BUILDERWORKER = "BUILDERWORKER",
 }
@@ -66,25 +67,15 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
         end
     end
 
-    function this.AddTargetingData()
-        local mouseLoc = Location(this.mouse.x, this.mouse.y)
-        this.data.Push({ name = "targeting", value = "" })
-        this.data.Push({ name = "    mouse", value = math.floor(this.mouse.x) .. " - " .. math.floor(this.mouse.y) })
-        this.data.Push({ name = "    canBuildTown", value = this.targeting.CanBuildUnitAt("htow", mouseLoc, "hpea"), })
-        this.data.Push({ name = "    canBuildFactory", value = this.targeting.CanBuildUnitAt("hbar", mouseLoc, "hpea"), })
-        this.data.Push({ name = "    canBuildHarvest", value = this.targeting.CanBuildUnitAt("hlum", mouseLoc, "hpea"), })
-        this.data.Push({ name = "    canBuildFarm", value = this.targeting.CanBuildUnitAt("hhou", mouseLoc, "hpea"), })
-        this.data.Push({ name = "    ", value = "", })
-        this.data.Push({ name = "    GetPathingAt", value = "", })
-        this.data.Push({ name = "    WALKABLE", value = this.targeting.GetPathingAt(mouseLoc, PATHING_TYPE_WALKABILITY), })
-        this.data.Push({ name = "    FLYABLE", value = this.targeting.GetPathingAt(mouseLoc, PATHING_TYPE_FLYABILITY), })
-        this.data.Push({ name = "    AMPHIBIOUS", value = this.targeting.GetPathingAt(mouseLoc, PATHING_TYPE_AMPHIBIOUSPATHING), })
-        this.data.Push({ name = "    FLOAT?", value = this.targeting.GetPathingAt(mouseLoc, PATHING_TYPE_FLOATABILITY), })
-        this.data.Push({ name = "    BLIGHT", value = not this.targeting.GetPathingAt(mouseLoc, PATHING_TYPE_BLIGHTPATHING), })
-        this.data.Push({ name = "    BUILD", value = this.targeting.GetPathingAt(mouseLoc, PATHING_TYPE_BUILDABILITY), })
-        this.data.Push({ name = "    PEON", value = this.targeting.GetPathingAt(mouseLoc, PATHING_TYPE_PEONHARVESTPATHING), })
-
-        RemoveLocation(mouseLoc)
+    function this.AddTicketData()
+        this.data.Push({ name = "tickets", value = #aiRace.moduleWorker.constructor.constructionList })
+        ---@param e ConstructionTicketDto
+        for i, e in ipairs(aiRace.moduleWorker.constructor.constructionList) do
+            this.data.Push({
+                name = "    " .. i,
+                value = "targetType: " .. tostring(e.targetType) .. ", townId: " .. tostring(e.townId) .. ", target" .. tostring(e.target) .. ", worker: " .. tostring(e.worker.unit)
+            })
+        end
     end
 
     function this.AddCreepData()
@@ -110,9 +101,14 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
         elseif this.type == ContextBoardModule.types.BUILDINGS then
             MultiboardSetTitleText(this.board, "Building data")
             this.AddBuildingData()
-        elseif this.type == ContextBoardModule.types.TARGETING then
-            MultiboardSetTitleText(this.board, "TargetingModule data")
-            this.AddTargetingData()
+        elseif this.type == ContextBoardModule.types.TICKET then
+            MultiboardSetTitleText(this.board, "TICKET data")
+            this.AddTicketData()
+        elseif this.type == ContextBoardModule.types.TICKETWORKER then
+            MultiboardSetTitleText(this.board, "TICKET and WorkerDto data")
+            this.AddTicketData()
+            this.data.Push({ name = "-", value = "------------------------" })
+            this.AddWorkerData()
         elseif this.type == ContextBoardModule.types.CREEP then
             MultiboardSetTitleText(this.board, "Creep data")
             this.AddCreepData()
@@ -145,13 +141,15 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
             elseif msg == "-b" then
                 this.type = ContextBoardModule.types.BUILDINGS
             elseif msg == "-t" then
-                this.type = ContextBoardModule.types.TARGETING
+                this.type = ContextBoardModule.types.TICKET
             elseif msg == "-c" then
                 this.type = ContextBoardModule.types.CREEP
             elseif msg == "-bw" then
                 this.type = ContextBoardModule.types.BUILDERWORKER
+            elseif msg == "-tw" then
+                this.type = ContextBoardModule.types.TICKETWORKER
             elseif msg == "-build" then
-                aiRace.moduleWorker.constructor.ConstructBuildingAsQuery("hhou", 99, 1, TownBuildingLocationModule.sizes.SMALL)
+                aiRace.moduleWorker.constructor.ConstructBuildingAsQuery("hhou", 99, 1, TownBuildingLocationModule.sizes.MEDIUM)
             elseif msg == "-reset" then
                 aiRace.moduleWorker.UpdateOrdersForWorkers(true)
             end

@@ -16,7 +16,14 @@ function ConstructionTicketDto.Create(worker, targetType, townId, buildingLocati
     this.buildingLocationSize = buildingLocationSize
 
     this.target = nil
-    this.lastLoc = nil
+    this.targetLocation = nil
+
+    function this.ReplaceLocation(location)
+        if (this.targetLocation) then
+            RemoveLocation(this.targetLocation)
+        end
+        this.targetLocation = location
+    end
 
     return this
 end

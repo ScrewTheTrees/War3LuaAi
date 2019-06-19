@@ -15,7 +15,9 @@ function AIAbstractRaceModule.Create(aiPlayer)
         logger.Critical("Ai player nil, functionality will never work.")
         return nil
     end
+    ---@type CreepsModule
     this.moduleCreep = CreepsModule.Create(aiPlayer)
+    ---@type WorkerHandlerModule
     this.moduleWorker = nil
 
     this.moduleCreep.RegenerateCreepCamps()

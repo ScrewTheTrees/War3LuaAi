@@ -82,14 +82,21 @@ function Utils.GetClosestTreeToLocationInRange(location, range)
     return target
 end
 
-function Utils.CreateJson(input, lastDepth)
+function Utils.CreateJson(input, depth)
+    if not (depth) then
+        depth = 3
+    end
+    return Utils._ParseJson(input, depth)
+end
+
+function Utils._ParseJson(input, lastDepth)
     local json = ""
     local depth = lastDepth - 1
     if (type(input) == "table") then
         if (depth >= 0) then
             json = json .. "{"
             for i, e in pairs(input) do
-                json = json .. i .. ":" .. Utils.CreateJson(e, depth) .. ", "
+                json = json .. i .. ":" .. Utils._ParseJson(e, depth) .. ", "
             end
             json = json .. "}"
         else

@@ -22,10 +22,11 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
 
     this.townAllocator = TownAllocatorList.Create(aiPlayer)
     this.workerAllocator = WorkerAllocatorList.Create(aiPlayer)
+    this.statsModule = StatsModule.Create(aiPlayer)
     this.workerGroups = WorkerGroupsList.Create(workerTypeConfig)
 
     this.buildings = BuildingAllocatorList.Create(aiPlayer, this.townAllocator)
-    this.constructor = ConstructorModule.Create(aiPlayer, this.workerGroups, this.buildings, this.townAllocator)
+    this.constructor = ConstructorModule.Create(aiPlayer, this.workerGroups, this.buildings, this.townAllocator, this, this.statsModule)
 
     local function PerformWorkerOrder(worker, orderType, townIndex, hardReset)
         hardReset = hardReset or false
