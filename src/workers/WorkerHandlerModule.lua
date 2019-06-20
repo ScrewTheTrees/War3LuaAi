@@ -22,7 +22,6 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
 
     this.townAllocator = TownAllocatorList.Create(aiPlayer)
     this.workerAllocator = WorkerAllocatorList.Create(aiPlayer)
-    this.statsModule = StatsModule.Create(aiPlayer)
     this.workerGroups = WorkerGroupsList.Create(workerTypeConfig)
 
     this.buildings = BuildingAllocatorList.Create(aiPlayer, this.townAllocator)

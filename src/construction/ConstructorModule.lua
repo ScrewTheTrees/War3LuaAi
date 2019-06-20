@@ -16,8 +16,7 @@ ConstructorModule = { }
 ---@param buildings BuildingAllocatorList
 ---@param townAllocator TownAllocatorList
 ---@param workerHandlerModule WorkerHandlerModule
----@param statsModule StatsModule
-function ConstructorModule.Create(aiPlayer, workerGroups, buildings, townAllocator, workerHandlerModule, statsModule)
+function ConstructorModule.Create(aiPlayer, workerGroups, buildings, townAllocator, workerHandlerModule)
     ---@class ConstructorModule
     local this = { }
     local logger = TreeCore.CreateLogger("ConstructorModule.lua")
@@ -28,9 +27,13 @@ function ConstructorModule.Create(aiPlayer, workerGroups, buildings, townAllocat
     this.buildings = buildings
     this.townAllocator = townAllocator
     this.workerHandlerModule = workerHandlerModule
-    this.statsModule = statsModule
+    this.statsModule = StatsModule.Create(aiPlayer)
     this.constructionList = ConstructionsList.Create()
     this.buildingLocation = TownBuildingLocationModule.Create()
+
+    function this.ResetQuery()
+        this.statsModule.ResetVirtualEconomy()
+    end
 
     ---@param buildingType string
     ---@param amount number

@@ -23,7 +23,7 @@ function AIRaceHumanModule.Create(aiPlayer)
     this.moduleWorker.UpdateOrdersForWorkers()
 
     DigestModule.slowDigest.AddToDigest("raceBuild" .. tostring(aiPlayer), function()
-        this.moduleWorker.constructor.statsModule.ResetVirtualEconomy()
+        this.moduleWorker.constructor.ResetQuery()
 
         this.moduleWorker.constructor.ConstructBuildingAsQuery("halt", 1, 1, TownBuildingLocationModule.sizes.SMALL)
         this.moduleWorker.constructor.ConstructBuildingAsQuery("hhou", 1, 1, TownBuildingLocationModule.sizes.SMALL)
