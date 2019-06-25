@@ -3,8 +3,8 @@ require("ArrayList")
 
 CreepsModule = { }
 
----@class CreepsModule : ArrayList
 function CreepsModule.Create()
+    ---@class CreepsModule : ArrayList
     local this = ArrayList.Create()
     local logger = TreeCore.CreateLogger("CreepsModule.lua")
 

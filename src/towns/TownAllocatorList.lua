@@ -28,14 +28,18 @@ function TownAllocatorList.Create(aiPlayer)
     end
 
     function this.MakeTown(building)
+        logger.Verbose("Make Town", building)
         if (Ids.IsHallId(Utils.CCInteger(GetUnitTypeId(building)))) then
             local townLoc = GetUnitLoc(building)
+            logger.Verbose("TownLoc", townLoc)
             if (this.GetClosestTownId(townLoc) >= 2048) then
                 local mine = Utils.GetUnitsAround(townLoc, Ids.goldmineIds)
+                logger.Verbose("mine", mine)
                 this.Push(TownDto.Create(townLoc, building, mine[1]))
             else
                 local town = this.Get(this.GetClosestTownId(townLoc))
                 town.hall = this
+                logger.Verbose("town", town)
             end
         end
     end

@@ -79,9 +79,9 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
     end
 
     function this.AddCreepData()
-        this.data.Push({ name = "CreepCamps", value = #aiRace.moduleCreep })
+        this.data.Push({ name = "CreepCamps", value = #aiRace.aiModules.moduleCreep })
         this.data.Push({ name = "    mouse", value = math.floor(this.mouse.x) .. " - " .. math.floor(this.mouse.y) })
-        for i, e in ipairs(aiRace.moduleCreep) do
+        for i, e in ipairs(aiRace.aiModules.moduleCreep) do
             local unitNames = ""
             for _, u in pairs(e.units) do
                 unitNames = unitNames .. ", " .. GetUnitName(u)
