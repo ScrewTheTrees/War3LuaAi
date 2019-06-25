@@ -3,7 +3,7 @@ require("workers.WorkerDto")
 require("utils.Utils")
 require("workers.WorkerAllocatorList")
 require("towns.TownAllocatorList")
-require("workers.WorkerGroupsList")
+require("workers.workerGroupsList")
 require("buildings.BuildingAllocatorList")
 require("ArrayList")
 require("Ids")
@@ -12,20 +12,11 @@ require("construction.ConstructorModule")
 
 WorkerHandlerModule = { }
 
-WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
+function WorkerHandlerModule.Create(aiPlayer, workerTypeConfig, aiModules)
     ---@class WorkerHandlerModule
     local this = { }
     local logger = TreeCore.CreateLogger("WorkerHandlerModule.lua")
-    logger.Verbose("Started Building AIWorker")
-
-    this.workerTypeConfig = workerTypeConfig
-
-    this.townAllocator = TownAllocatorList.Create(aiPlayer)
-    this.workerAllocator = WorkerAllocatorList.Create(aiPlayer)
-    this.workerGroups = WorkerGroupsList.Create(workerTypeConfig)
-
-    this.buildings = BuildingAllocatorList.Create(aiPlayer, this.townAllocator)
-    this.constructor = ConstructorModule.Create(aiPlayer, this.workerGroups, this.buildings, this.townAllocator, this, this.statsModule)
+    logger.Verbose("Started Building WorkerHandlerModule")
 
     local function PerformWorkerOrder(worker, orderType, townIndex, hardReset)
         hardReset = hardReset or false
@@ -35,23 +26,24 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
             elseif orderType == Ids.orderTypes.ORDER_BUILD then
                 return nil --handled in ConstructorModule
             elseif orderType == Ids.orderTypes.ORDER_GOLDMINE then
-                IssueTargetOrder(worker.unit, "harvest", this.townAllocator.GetOrFirst(townIndex).mine)
+                IssueTargetOrder(worker.unit, "harvest", aiModules.townAllocator.GetOrFirst(townIndex).mine)
                 worker.order = Ids.orderTypes.ORDER_GOLDMINE
             elseif orderType == Ids.orderTypes.ORDER_WOOD then
-                local loc = GetUnitLoc(this.townAllocator.GetOrFirst(townIndex).hall)
+                local loc = GetUnitLoc(aiModules.townAllocator.GetOrFirst(townIndex).hall)
                 IssueTargetOrder(worker.unit, "harvest", Utils.GetClosestTreeToLocationInRange(loc, 4096))
                 worker.order = Ids.orderTypes.ORDER_WOOD
                 RemoveLocation(loc)
             end
         end
     end
+    logger.Verbose("Built method PerformWorkerOrder")
 
     local function IterateOrders(group, hardReset)
         hardReset = hardReset or false
         for i, worker in ipairs(group.workerIndexes) do
             if (hardReset or not (worker.order == group.orderType)) and not (worker.order == Ids.orderTypes.ORDER_BUILD) then
                 if group.orderType == Ids.orderTypes.ORDER_GOLDMINE then
-                    if not (this.townAllocator.Get(group.townIndex) == nil) then
+                    if not (aiModules.townAllocator.Get(group.townIndex) == nil) then
                         PerformWorkerOrder(worker, Ids.orderTypes.ORDER_GOLDMINE, group.townIndex, hardReset)
                     else
                         PerformWorkerOrder(worker, Ids.orderTypes.ORDER_WOOD, group.townIndex, hardReset)
@@ -61,34 +53,37 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
                     PerformWorkerOrder(worker, Ids.orderTypes.ORDER_WOOD, group.townIndex, hardReset)
                 end
                 if (group.orderType == Ids.orderTypes.ORDER_BUILD and not (worker.order == Ids.orderTypes.ORDER_BUILD)) then
-                    PerformWorkerOrder(worker, this.workerTypeConfig.buildIdleOrder, group.townIndex, hardReset)
+                    PerformWorkerOrder(worker, workerTypeConfig.buildIdleOrder, group.townIndex, hardReset)
                 end
             end
         end
     end
+    logger.Verbose("Built method IterateOrders")
 
     local function IterateIdles()
         IterateOrders({
             orderType = Ids.orderTypes.ORDER_WOOD,
-            workerIndexes = this.workerGroups.idleIndexes,
+            workerIndexes = aiModules.workerGroupsList.idleIndexes,
             townIndex = 1,
         })
     end
+    logger.Verbose("Built method IterateIdles")
 
     function this.UpdateOrdersForWorkers(hardReset)
         hardReset = hardReset or false
-        for i, group in ipairs(this.workerGroups) do
+        for i, group in ipairs(aiModules.workerGroupsList) do
             if (group.amountOfWorkers > #group.workerIndexes) then
                 logger.Verbose(group.amountOfWorkers, ">", #group.workerIndexes)
-                this.workerGroups.PopulateIdleWorkers(i)
+                aiModules.workerGroupsList.PopulateIdleWorkers(i)
             end
             IterateOrders(group, hardReset)
         end
         IterateIdles(hardReset)
     end
+    logger.Verbose("Built method UpdateOrdersForWorkers")
 
-    for i, wg in ipairs(this.workerAllocator) do
-        this.workerGroups.idleIndexes[#this.workerGroups.idleIndexes + 1] = wg
+    for _, wg in ipairs(aiModules.workerAllocator) do
+        aiModules.workerGroupsList.idleIndexes[#aiModules.workerGroupsList.idleIndexes + 1] = wg
     end
 
     this.workerAdder = {}
@@ -98,9 +93,9 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
         return (Ids.IsPeonId(Utils.CCInteger(GetUnitTypeId(GetTrainedUnit()))))
     end))
     this.workerAdder.action = TriggerAddAction(this.workerAdder.trigger, function()
-        local id = this.workerAllocator.Push(WorkerDto.Create(GetTrainedUnit()))
-        local worker = this.workerAllocator.Get(id)
-        this.workerGroups.idleIndexes.Push(worker)
+        local id = aiModules.workerAllocator.Push(WorkerDto.Create(GetTrainedUnit()))
+        local worker = aiModules.workerAllocator.Get(id)
+        aiModules.workerGroupsList.idleIndexes.Push(worker)
         this.UpdateOrdersForWorkers()
     end)
 
@@ -111,14 +106,14 @@ WorkerHandlerModule.Create = function(aiPlayer, workerTypeConfig)
         return (Ids.IsPeonId(Utils.CCInteger(GetUnitTypeId(GetDyingUnit()))))
     end))
     this.workerRemover.action = TriggerAddAction(this.workerRemover.trigger, function()
-        local id = this.workerAllocator.GetIndexByUnit(GetDyingUnit())
-        local worker = this.workerAllocator.Pop(id)
+        local id = aiModules.workerAllocator.GetIndexByUnit(GetDyingUnit())
+        local worker = aiModules.workerAllocator.Pop(id)
         worker.order = Ids.orderTypes.ORDER_DEAD
-        this.workerGroups.ClearWorker(worker)
+        aiModules.workerGroupsList.ClearWorker(worker)
         this.UpdateOrdersForWorkers()
     end)
 
-    logger.Verbose("Finish Building AIWorker")
+    logger.Verbose("Finish Building WorkerHandlerModule")
 
     return this
 end

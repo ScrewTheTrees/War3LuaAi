@@ -44,22 +44,22 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
 
     function this.AddWorkerData()
         this.data.Push({ name = "", value = Utils.CreateJson(aiRace.workerTypeConfig, 3) })
-        this.data.Push({ name = "workerGroups", value = #aiRace.moduleWorker.workerGroups })
-        for i, e in ipairs(aiRace.moduleWorker.workerGroups) do
+        this.data.Push({ name = "workerGroupsList", value = #aiRace.aiModules.workerGroupsList })
+        for i, e in ipairs(aiRace.aiModules.workerGroupsList) do
             this.data.Push({ name = "    " .. i, value = e.orderType .. " -> " .. #e.workerIndexes .. "/" .. e.amountOfWorkers .. " workers in town " .. e.townIndex })
             for j, u in ipairs(e.workerIndexes) do
                 this.data.Push({ name = "        " .. j, value = Utils.CreateJson(u, 3) })
             end
         end
         this.data.Push({ name = "    " .. 0, value = Ids.orderTypes.ORDER_IDLE })
-        for j, u in ipairs(aiRace.moduleWorker.workerGroups.idleIndexes) do
+        for j, u in ipairs(aiRace.aiModules.workerGroupsList.idleIndexes) do
             this.data.Push({ name = "        " .. j, value = Utils.CreateJson(u, 3) })
         end
     end
 
     function this.AddBuildingData()
-        this.data.Push({ name = "buildings", value = #aiRace.moduleWorker.buildings })
-        for i, e in ipairs(aiRace.moduleWorker.buildings) do
+        this.data.Push({ name = "buildings", value = #aiRace.aiModules.buildings })
+        for i, e in ipairs(aiRace.aiModules.buildings) do
             this.data.Push({
                 name = "    " .. i,
                 value = "Town(" .. e.townIndex .. ")" .. " -> " .. GetUnitName(e.unit) .. " -> " .. e.status .. " -> " .. NameCC(e.targetType)
@@ -68,9 +68,9 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
     end
 
     function this.AddTicketData()
-        this.data.Push({ name = "tickets", value = #aiRace.moduleWorker.constructor.constructionList })
+        this.data.Push({ name = "tickets", value = #aiRace.aiModules.constructor.constructionList })
         ---@param e ConstructionTicketDto
-        for i, e in ipairs(aiRace.moduleWorker.constructor.constructionList) do
+        for i, e in ipairs(aiRace.aiModules.constructor.constructionList) do
             this.data.Push({
                 name = "    " .. i,
                 value = "targetType: " .. tostring(e.targetType) .. ", townId: " .. tostring(e.townId) .. ", target" .. tostring(e.target) .. ", worker: " .. tostring(e.worker.unit)
@@ -149,9 +149,9 @@ function ContextBoardModule.Create(aiPlayer, aiRace)
             elseif msg == "-tw" then
                 this.type = ContextBoardModule.types.TICKETWORKER
             elseif msg == "-build" then
-                aiRace.moduleWorker.constructor.ConstructBuildingAsQuery("hhou", 99, 1, TownBuildingLocationModule.sizes.MEDIUM)
+                aiRace.aiModules.constructor.ConstructBuildingAsQuery("hhou", 99, 1, TownBuildingLocationModule.sizes.MEDIUM)
             elseif msg == "-reset" then
-                aiRace.moduleWorker.UpdateOrdersForWorkers(true)
+                aiRace.aiModules.workerHandlerModule.UpdateOrdersForWorkers(true)
             end
         end, logger.Critical)
     end)

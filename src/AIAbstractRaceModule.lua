@@ -17,8 +17,8 @@ function AIAbstractRaceModule.Create(aiPlayer)
     end
     ---@type CreepsModule
     this.moduleCreep = CreepsModule.Create(aiPlayer)
-    ---@type WorkerHandlerModule
-    this.moduleWorker = nil
+    ---@type AIModules
+    this.aiModules = nil
 
     this.moduleCreep.RegenerateCreepCamps()
     --CODE

@@ -13,13 +13,13 @@ function AIRaceNightElfModule.Create(aiPlayer)
     logger.Verbose("Make AIRaceNightElfModule")
 
     this.workerTypeConfig = WorkerTypeConfigDto.Create("ewsp", "ewsp", "ewsp", Ids.orderTypes.ORDER_WOOD)
-    this.moduleWorker = WorkerHandlerModule.Create(aiPlayer, this.workerTypeConfig)
+    this.aiModules = AIModules.Create(aiPlayer, this.workerTypeConfig)
 
-    this.moduleWorker.workerGroups.Set(1, 3, Ids.orderTypes.ORDER_GOLDMINE, 1)
-    this.moduleWorker.workerGroups.Set(2, 1, Ids.orderTypes.ORDER_BUILD, 1)
-    this.moduleWorker.workerGroups.Set(3, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
+    this.aiModules.workerGroupsList.Set(1, 3, Ids.orderTypes.ORDER_GOLDMINE, 1)
+    this.aiModules.workerGroupsList.Set(2, 1, Ids.orderTypes.ORDER_BUILD, 1)
+    this.aiModules.workerGroupsList.Set(3, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
 
-    this.moduleWorker.UpdateOrdersForWorkers()
+    this.aiModules.workerHandlerModule.UpdateOrdersForWorkers()
 
     logger.Verbose("Finish AIRaceNightElfModule")
 

@@ -14,12 +14,13 @@ BuildingAllocatorList.statuses = {
 }
 
 ---@param townAllocator TownAllocatorList
-function BuildingAllocatorList.Create(aiPlayer, townAllocator)
+---@param aiModules AIModules
+function BuildingAllocatorList.Create(aiPlayer, aiModules)
     ---@class BuildingAllocatorList : ArrayList
     local this = ArrayList.Create()
     local logger = TreeCore.CreateLogger("BuildingAllocatorList.lua")
     logger.Verbose("Started Building BuildingAllocatorList")
-    this.aiTownAllocator = townAllocator
+    this.aiModules = aiModules
 
     function this.GetByUnit (unit)
         for i = 1, #this do
@@ -63,8 +64,8 @@ function BuildingAllocatorList.Create(aiPlayer, townAllocator)
     this.onStartConstruct.action = TriggerAddAction(this.onStartConstruct.trigger, function()
         local building = GetTriggerUnit()
         local loc = GetUnitLoc(building)
-        this.aiTownAllocator.MakeTown(building)
-        local index = this.Push(BuildingDto.Create(building, BuildingAllocatorList.statuses.CONSTRUCTING, this.aiTownAllocator.GetClosestTownId(loc)))
+        this.aiModules.aiTownAllocator.MakeTown(building)
+        local index = this.Push(BuildingDto.Create(building, BuildingAllocatorList.statuses.CONSTRUCTING, this.aiModules.aiTownAllocator.GetClosestTownId(loc)))
         RemoveLocation(loc)
         this.onStartConstruct.callbacks.ForEach(function(func)
             func(this.Get(index))

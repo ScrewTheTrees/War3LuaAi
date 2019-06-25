@@ -12,14 +12,14 @@ function AIRaceUndeadModule.Create(aiPlayer)
     logger.Verbose("Make AIRaceUndeadModule")
 
     this.workerTypeConfig = WorkerTypeConfigDto.Create("uaco", "ugho", "uaco", Ids.orderTypes.ORDER_GOLDMINE)
-    this.moduleWorker = WorkerHandlerModule.Create(aiPlayer, this.workerTypeConfig)
+    this.aiModules = AIModules.Create(aiPlayer, this.workerTypeConfig)
 
-    this.moduleWorker.workerGroups.Set(1, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
-    this.moduleWorker.workerGroups.Set(1, 1, Ids.orderTypes.ORDER_BUILD, 1)
-    this.moduleWorker.workerGroups.Set(2, 1, Ids.orderTypes.ORDER_WOOD, 1)
-    this.moduleWorker.workerGroups.Set(3, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
+    this.aiModules.workerGroupsList.Set(1, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
+    this.aiModules.workerGroupsList.Set(1, 1, Ids.orderTypes.ORDER_BUILD, 1)
+    this.aiModules.workerGroupsList.Set(2, 1, Ids.orderTypes.ORDER_WOOD, 1)
+    this.aiModules.workerGroupsList.Set(3, 2, Ids.orderTypes.ORDER_GOLDMINE, 1)
 
-    this.moduleWorker.UpdateOrdersForWorkers()
+    this.aiModules.workerHandlerModule.UpdateOrdersForWorkers()
 
     logger.Verbose("Finish AIRaceUndeadModule")
 

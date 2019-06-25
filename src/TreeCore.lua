@@ -3,7 +3,7 @@ TreeCore.__index = TreeCore
 
 TreeCore.version = 2
 
-TreeCore.printVerbose = false
+TreeCore.printVerbose = true
 TreeCore.printDebug = true
 TreeCore.printWarning = true
 TreeCore.printCritical = true
